@@ -1,0 +1,8 @@
+preference iklan ditambahin media, deskripsi, link tujuan -> upload materi iklan
+
+domain : neuthings.id
+
+3 jenis onclick
+1. syarat dan ketentuan 
+2. foto
+3. input email sama nomor hp

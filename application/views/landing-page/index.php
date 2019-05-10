@@ -11,17 +11,17 @@
   <title>Neuthings</title>
 
   <!-- Font Awesome Icons -->
-  <link href="<?=base_url()?>assets/css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+  <link href="<?=base_url()?>assets/landing-page/css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
   <!-- Plugin CSS -->
-  <link href="<?=base_url()?>assets/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+  <link href="<?=base_url()?>assets/landing-page/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
   <!-- Theme CSS - Includes Bootstrap -->
-  <link href="<?=base_url()?>assets/css/creative.css" rel="stylesheet">
+  <link href="<?=base_url()?>assets/landing-page/css/creative.css" rel="stylesheet">
 
 </head>
 
@@ -49,7 +49,7 @@
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="admin/login.html">Login</a>
+              <a class="nav-link" href="<?=base_url()?>auth">Login</a>
           </li>
         </ul>
       </div>
@@ -142,7 +142,7 @@
       </div>
       <div class="row mt-5">
         <div class="col-md-6">
-          <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="<?=base_url()?>assets/img-fluid">
+          <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
         </div>
         <div class="col-md-6">
           <h4>title</h4>
@@ -151,19 +151,19 @@
       </div>
       <div class="row mt-5">
         <div class="col-md-6 d-xs-block d-sm-block d-md-none d-lg-none">
-            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="<?=base_url()?>assets/img-fluid">
+            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
         </div>
         <div class="col-md-6">
           <h4>title</h4>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo suscipit ipsum ad iusto sequi enim dolores quibusdam odio repellat placeat, esse accusamus architecto non qui ipsam quidem doloremque, eaque nobis.
         </div>
         <div class="col-md-6 d-none d-sm-block">
-            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="<?=base_url()?>assets/img-fluid">
+            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
         </div>
       </div>
       <div class="row mt-5">
         <div class="col-md-6">
-            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="<?=base_url()?>assets/img-fluid">
+            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
         </div>
         <div class="col-md-6">
           <h4>title</h4>
@@ -172,14 +172,14 @@
       </div>
       <div class="row mt-5">
           <div class="col-md-6 d-xs-block d-sm-block d-md-none d-lg-none">
-              <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="<?=base_url()?>assets/img-fluid">
+              <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
           </div>
           <div class="col-md-6">
             <h4>title</h4>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo suscipit ipsum ad iusto sequi enim dolores quibusdam odio repellat placeat, esse accusamus architecto non qui ipsam quidem doloremque, eaque nobis.
           </div>
           <div class="col-md-6 d-none d-sm-block">
-              <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="<?=base_url()?>assets/img-fluid">
+              <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
           </div>
         </div>
     </div>
@@ -285,14 +285,14 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="<?=base_url()?>assets/vendor/jquery/jquery.min.js"></script>
-  <script src="<?=base_url()?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?=base_url()?>assets/landing-page/vendor/jquery/jquery.min.js"></script>
+  <script src="<?=base_url()?>assets/landing-page/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Plugin JavaScript -->
-  <script src="<?=base_url()?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="<?=base_url()?>assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+  <script src="<?=base_url()?>assets/landing-page/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="<?=base_url()?>assets/landing-page/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
-  <script src="<?=base_url()?>assets/js/creative.min.js"></script>
+  <script src="<?=base_url()?>assets/landing-page/js/creative.min.js"></script>
   <script>
     $(document).ready(function () {
       var isOpened = false;

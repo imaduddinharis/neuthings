@@ -54,3 +54,16 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['/'] = 'landingpagecontroller';
+$route['auth'] = 'authcontroller';
+$route['auth/login-google'] = 'authcontroller/logingoogle';
+$route['auth/login-facebook'] = 'authcontroller/loginfacebook';
+$route['auth/logout'] = 'authcontroller/logout';
+
+$route['dashboard'] = 'dashboardcontroller';
+
+$route['ads/list'] = 'adsmanagementcontroller';
+$route['ads/create'] = 'adsmanagementcontroller/create';
+$route['ads/update'] = 'adsmanagementcontroller/update';
+
+
+
