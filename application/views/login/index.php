@@ -56,10 +56,10 @@
                       Login
                     </a>
                     <hr> -->
-                    <a href="<?=base_url()?>auth/login-google" class="btn btn-google btn-user btn-block">
+                    <a href="<?=$authGoogle?>" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Login with Google
                     </a>
-                    <a href="<?=base_url()?>auth/login-facebook" class="btn btn-facebook btn-user btn-block">
+                    <a href="<?=$authFb?>" class="btn btn-facebook btn-user btn-block fb-login-button" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true">
                       <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                     </a>
                   </form>
@@ -82,6 +82,14 @@
 
   </div>
 
+  <div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=340354959998168&autoLogAppEvents=1"></script>
+	<script type="text/javascript">
+			FB.init({appId: '<?php echo facebook_app_id()?>', status: true, cookie: true, xfbml: true});
+			FB.Event.subscribe('auth.login', function(response) {
+				// window.location.reload();
+			});
+		</script>
   <!-- Bootstrap core JavaScript-->
   <script src="<?=base_url()?>assets/admin/vendor/jquery/jquery.min.js"></script>
   <script src="<?=base_url()?>assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

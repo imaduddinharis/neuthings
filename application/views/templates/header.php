@@ -155,8 +155,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $userData['first_name'].' '.$userData['last_name']; ?></span>
+                <img class="img-profile rounded-circle" src="<?= $userData['picture']; ?>">
               </a>
               <!-- Dropdown - User Information -->
               
