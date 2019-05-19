@@ -12,8 +12,15 @@
                                     </ul>
                                 </div>
                         </div>
-                        <!-- <br> -->
+                        
                         <div class="card border-bottom-primary shadow h-100 py-2">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fa fa-info-circle"></i> Failed to create the ads, please check your data then try again
+                                <br> <small>If still failed to , so please call customer service</small>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <form method="post" action="<?=base_url()?>ads/post" enctype="multipart/form-data">
 
@@ -25,16 +32,16 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="Languages">Languages</label>
-                                            <input type="text" onInput="validationform1()"  class="form-control" name="languages" id="languages" placeholder="English, Indonesian" required>
+                                            <input type="text" onInput="validationform1()"  class="form-control" name="languages" id="languages" value="<?=$formValue['languages']?>" required>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 mb-0">
                                             <label>Location Target</label>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <input type="text" onInput="validationform1()" class="form-control" name="city" placeholder="City" required>
+                                            <input type="text" onInput="validationform1()" class="form-control" name="city" placeholder="City" value="<?=$formValue['city']?>" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <input type="text" onInput="validationform1()" class="form-control" name="state" placeholder="State" required>
+                                            <input type="text" onInput="validationform1()" class="form-control" name="state" placeholder="State" value="<?=$formValue['state']?>" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <select class="form-control" id="country" onInput="validationform1()" name="country" required>
@@ -64,9 +71,9 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text bg-primary text-white">IDR</div>
                                                 </div>
-                                                <input type="text" onInput="validationform1()" name="price" class="form-control" id="price" placeholder="0.00" required>
+                                                <input type="text" onInput="validationform1()" name="price" class="form-control" id="price" placeholder="0.00" value="<?=$formValue['price']?>" required>
                                             </div>
-                                            <small class="text-muted text-form">price in indonesia rupiah</small>
+                                            <small class="text-muted text-form">price in indonesia rupiah (min. IDR 100K)</small>
                                         </div>
                                         <div class="col-md-6 col-sm-12 form-group">
                                             <label for="scheduling">Scheduling</label>
@@ -96,7 +103,7 @@
                                     <div class="row" id="form-content">
                                     <div class="form-group col-md-12 col-sm-12">
                                             <label for="title">Title</label>
-                                            <input type="text" class="form-control" onInput="validationform2()" name="title" id="title" placeholder="Product XYZ" required>
+                                            <input type="text" class="form-control" onInput="validationform2()" name="title" id="title" placeholder="Product XYZ" value="<?=$formValue['title']?>" required>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="photo">Photo</label>

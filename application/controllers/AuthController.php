@@ -15,6 +15,10 @@ class AuthController extends CI_Controller {
         $this->load->model('users');
         //Load user model
         $this->load->model('user');
+        if(isset($_SESSION['loggedIn']))
+        {
+            redirect(base_url().'dashboard');
+        }
     }
 
 	public function index()

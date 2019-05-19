@@ -57,7 +57,17 @@
   <!-- Page level custom scripts -->
   <script src="<?=base_url()?>assets/admin/js/demo/chart-area-demo.js"></script>
   <script src="<?=base_url()?>assets/admin/js/demo/chart-pie-demo.js"></script>
+  <script src="<?=base_url()?>assets/admin/js/ads-page.js"></script>
 
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  
+  <!-- MDBootstrap Steppers Pro  -->
+  <script type="text/javascript" src="<?=base_url()?>assets/admin/js/step.js"></script>
+  <script>
+    $(document).ready(function () {
+    $('.stepper').mdbStepper();
+    })
+  </script>
 </body>
 
 </html>

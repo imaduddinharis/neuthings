@@ -66,6 +66,8 @@ $route['dashboard'] = 'dashboardcontroller';
 $route['ads/list'] = 'adsmanagementcontroller';
 $route['ads/create'] = 'adsmanagementcontroller/create';
 $route['ads/update'] = 'adsmanagementcontroller/update';
+$route['ads/post'] = 'adsmanagementcontroller/post';
+$route['ads/put'] = 'adsmanagementcontroller/put';
 
 $route['about/kebijakan-privasi'] = 'dashboard';
 $route['about/ketentuan-layanan'] = 'dashboard';

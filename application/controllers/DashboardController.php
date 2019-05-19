@@ -8,6 +8,10 @@ class DashboardController extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('session');
+        if(!isset($_SESSION['loggedIn']))
+        {
+            redirect(base_url().'auth');
+        }
     }
 
 	public function index()
