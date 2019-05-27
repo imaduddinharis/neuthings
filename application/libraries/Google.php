@@ -29,7 +29,7 @@ class Google {
     }
     
     public function get_url_logout(){
-        $logoutLink = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue='.base_url().'auth';
+        $logoutLink = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue='.base_url().'auth/logout';
         return $logoutLink;
     }
 

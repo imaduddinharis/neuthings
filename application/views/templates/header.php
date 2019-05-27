@@ -17,6 +17,19 @@
   <link href="<?=base_url()?>assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
   <!-- MDBootstrap Steppers Pro  -->
   <link href="<?=base_url()?>assets/admin/css/step.css" rel="stylesheet">
+  <!-- datatables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css">
+
+  <style>
+    td #chevright
+    {
+      float:right
+    }
+    .table-inline
+    {
+      display:inline-block;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -143,7 +156,7 @@
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top">
 
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">

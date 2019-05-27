@@ -1,6 +1,52 @@
 </div>
 <!-- End of Main Content -->
-
+  <button id="chatbutton" class="btn btn-secondary" style="position: fixed; bottom: 1rem; right: 4rem;"><i class="fa fa-comment"></i> Livechat</button>
+    <div class="card" style="position: fixed; bottom: 70px; right: 28px; width: 350px; max-height: 500px; display: none;" id="chatbox">
+      <div class="card-header bg-primary bg- text-white">
+        <!-- <i class="fa fa-chevron-left" id="chatback" style="display: none; cursor:pointer;margin-right:5px;"></i>  -->
+        Neuthings Customer Service
+        <i style="width:10px;height:10px;background-color:red;color:red;border-radius:100%; display:inline-block"></i> Offline
+        <!-- <span><span>Online -->
+      </div>
+      <div class="card-body" style="overflow-y: scroll">
+        <div id="chatbar">
+          <div class="row mb-4">
+            <div class="col-md-3">
+              <img src="https://dummyimage.com/70x70/000/ffffff" alt="" class=" rounded-circle">
+            </div>
+            <div class="col-md-9">
+              <div class="card">
+                <div class="card-body">
+                  <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa dolore, dolores doloribus ducimus eaque explicabo inventore iusto minima nesciunt numquam officia quisquam, recusandae rem sint suscipit tempore temporibus vel.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-9">
+              <div class="card">
+                <div class="card-body">
+                  <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa dolore, dolores doloribus ducimus eaque explicabo inventore iusto minima nesciunt numquam officia quisquam, recusandae rem sint suscipit tempore temporibus vel.</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <img src="https://dummyimage.com/70x70/000/ffffff" alt="" class=" rounded-circle">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer" id="chatfooter" style="">
+        <div class="row">
+          <div class="col-md-9">
+            <textarea class="form-control" rows="1" style="font-size: small;"></textarea>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <button class="btn btn-primary btn-block"><i class="fa fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -68,6 +114,58 @@
     $('.stepper').mdbStepper();
     })
   </script>
+
+  <!-- datatables -->
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.tabledata').DataTable({
+                  "dom":  '<"search"fl><"top">rt<"bottom"ip>',
+                  "oLanguage": {
+                        "sSearch": "",
+                        "sLengthMenu":"_MENU_"
+                  }
+                });
+            });
+            $(document).ready(function(){
+              $("#table-invoice_wrapper").removeClass("form-inline");
+              // var til = `
+              // <select name="table-invoice_length" aria-controls="table-invoice" class="form-control input-sm">
+              //   <option value="10">10</option>
+              //   <option value="25">25</option>
+              //   <option value="50">50</option>
+              //   <option value="100">100</option>
+              // </select>
+              // `;
+              // $("#table-invoice_length label").html(til);
+              // $("#table-invoice_length label").addClass('table-inline');
+              
+              // var tif = `
+              // <input type="search" class="form-control input-sm" placeholder="search" aria-control="table-invoice">
+              // `;
+              // $("#table-invoice_filter label").html(tif);
+            });
+        </script>
+<!-- enddatatables -->
+<!-- livevchat -->
+<script>
+    $(document).ready(function () {
+      var isOpened = false;
+      $("#chatbutton").on("click", function () {
+        if(isOpened == false){
+          $("#chatbox").show();
+          isOpened = true;
+        }else{
+          $("#chatbox").hide();
+          isOpened = false;
+        }
+      })
+    })
+    
+  </script>
+  <!-- endlivechat -->
 </body>
 
 </html>

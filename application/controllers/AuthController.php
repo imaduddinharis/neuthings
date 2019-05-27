@@ -15,14 +15,15 @@ class AuthController extends CI_Controller {
         $this->load->model('users');
         //Load user model
         $this->load->model('user');
-        if(isset($_SESSION['loggedIn']))
-        {
-            redirect(base_url().'dashboard');
-        }
+        
     }
 
 	public function index()
 	{
+        if(isset($_SESSION['loggedIn']))
+        {
+            redirect(base_url().'dashboard');
+        }
         $data['authFb'] = $this->facebook->login_url();
         $data['authGoogle'] = $this->google->get_login_url();
 		$this->load->view('login/index',$data);
@@ -30,6 +31,10 @@ class AuthController extends CI_Controller {
     
     public function logingoogle()
     {
+        if(isset($_SESSION['loggedIn']))
+        {
+            redirect(base_url().'dashboard');
+        }
         $google_data = $this->google->validate();
 
         $userData['oauth_provider'] = 'google';
@@ -64,6 +69,10 @@ class AuthController extends CI_Controller {
     
     public function loginfacebook()
     {
+        if(isset($_SESSION['loggedIn']))
+        {
+            redirect(base_url().'dashboard');
+        }
         $userData = array();
         
         // Check if user is logged in

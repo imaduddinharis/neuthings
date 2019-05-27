@@ -15,14 +15,93 @@ class AdsManagementController extends CI_Controller {
         }
         $this->load->model('AdsPref');
         $this->load->model('AdsCont');
+        $this->load->model('Platforms');
+        $this->load->model('Schedules');
+        $this->load->model('Budgets');
+        $this->load->model('AdsClicks');
+        $this->load->model('Terms');
+        $this->load->model('Payments');
     }
 
 	public function index()
 	{
         $data['userData'] = $this->session->userdata('userData');
+        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])->get();
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
-        $data['content']=$this->load->view('maintenance/index',$data, true);
+        $data['content']=$this->load->view('ads/index',$data, true);
+        $data['footer']=$this->load->view('templates/footer',$data, true);
+		$this->load->view('index',$data);
+    }
+
+    public function detail($id)
+	{
+        $data['userData'] = $this->session->userdata('userData');
+        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+                                    ->where('id_ads_pref',$id)
+                                    ->get();
+        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+                                    ->get();
+        $data['title'] = 'Neuthings | Dashboard';
+        $data['header']=$this->load->view('templates/header',$data, true);
+        $data['content']=$this->load->view('ads/detail',$data, true);
+        $data['footer']=$this->load->view('templates/footer',$data, true);
+		$this->load->view('index',$data);
+    }
+    public function monitoring($id)
+	{
+        $data['userData'] = $this->session->userdata('userData');
+        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+                                    ->where('id_ads_pref',$id)
+                                    ->get();
+        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+                                    ->get();
+        $data['title'] = 'Neuthings | Dashboard';
+        $data['header']=$this->load->view('templates/header',$data, true);
+        $data['content']=$this->load->view('ads/monitoring',$data, true);
+        $data['footer']=$this->load->view('templates/footer',$data, true);
+		$this->load->view('index',$data);
+    }
+    public function invoice($id)
+	{
+        $data['userData'] = $this->session->userdata('userData');
+        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+                                    ->where('id_ads_pref',$id)
+                                    ->get();
+        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+                                    ->get();
+        $data['payments'] = Payments::where('id_ads_pref', $id)
+                                    ->get();
+        $data['unpaid'] = Payments::where('id_ads_pref', $id)
+                                    ->where('status', '0')
+                                    ->count();    
+        $data['paid'] = Payments::where('id_ads_pref', $id)
+                                    ->where('status', '1')
+                                    ->count();
+        $data['expired'] = Payments::where('id_ads_pref', $id)
+                                    ->where('status', '2')
+                                    ->count();    
+        $data['title'] = 'Neuthings | Dashboard';
+        $data['header']=$this->load->view('templates/header',$data, true);
+        $data['content']=$this->load->view('ads/invoice',$data, true);
+        $data['footer']=$this->load->view('templates/footer',$data, true);
+		$this->load->view('index',$data);
+    }
+
+    public function invoice_detail($id,$idpayments)
+	{
+        $data['userData'] = $this->session->userdata('userData');
+        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+                                    ->where('id_ads_pref',$id)
+                                    ->get();
+        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+                                    ->get();
+        $data['payments'] = Payments::where('id_ads_pref', $id)
+                                    ->where('id_payments', $idpayments)
+                                    ->get();
+        $data['title'] = 'Neuthings | Dashboard';
+        $data['header']=$this->load->view('templates/header',$data, true);
+        $data['content']=$this->load->view('invoice/index',$data, true);
         $data['footer']=$this->load->view('templates/footer',$data, true);
 		$this->load->view('index',$data);
     }
@@ -65,6 +144,7 @@ class AdsManagementController extends CI_Controller {
             'photo'         => $_FILES['photo']['name'],
             'adsclick'      => $this->input->post('adsclick'),
         );
+        
         $datas = array_merge($adsPref,$adsCont);
         // var_dump($this->uploading());
         // var_dump($datas);
@@ -79,9 +159,29 @@ class AdsManagementController extends CI_Controller {
                         'id_ads_pref'   => $createPref->id);
             $adsCont = array_merge($adsCont,$id);
             $createCont = AdsCont::create($adsCont);
+            $adsPayment = array(
+                'id_ads_pref'   => $createPref->id,
+                'price'         => $this->input->post('price'),
+                'status'        => 0,
+            );
+            Payments::create($adsPayment);
+            if($this->input->post('adsclick') == 1){
+                $getTerms = $this->getTerms($this->input->post('terms'),$createPref->id);
+                // var_dump($getTerms);
+                // return false;
+                $postAdsClick = Terms::insert($getTerms);
+
+                
+            }else if($this->input->post('adsclick') == 2){
+
+            }else if($this->input->post('adsclick') == 3){
+
+            }
             // $upload = $this->uploading();
             // $create = false;
-            if($createPref && $createCont && $uploaded)
+            // var_dump($uploaded);
+            //     return false;
+            if($createPref && $createCont && $uploaded && $postAdsClick)
             {
                 redirect(base_url().'ads/list');
             }else
@@ -124,11 +224,27 @@ class AdsManagementController extends CI_Controller {
         }
     }
 
+    public function getTerms($terms,$id)
+    {
+        $termsCount = count($terms);
+        $dataTerms = array();
+        for($i=0;$i<$termsCount;$i++)
+        {
+            array_push($dataTerms,
+                array(
+                    'id_ads_pref' => $id,
+                    'terms' => $terms[$i]
+                )
+            );
+        }
+        return $dataTerms;
+    }
+
     public function uploading(){
         $uploaded;
 		$config['upload_path']          = './ads/content';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 100;
+		$config['max_size']             = 5000000;
 		$config['max_width']            = 1024;
         $config['max_height']           = 768;
         $config['file_name']            = date('dmyhis').$_FILES['photo']['name'];

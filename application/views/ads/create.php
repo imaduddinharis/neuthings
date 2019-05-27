@@ -94,7 +94,7 @@
                                     <!-- form content -->
 
                                     <div class="row" id="form-content">
-                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="form-group col-md-12 col-sm-12">
                                             <label for="title">Title</label>
                                             <input type="text" class="form-control" onInput="validationform2()" name="title" id="title" placeholder="Product XYZ" required>
                                         </div>
@@ -107,17 +107,43 @@
                                             <select id="adsclick" onInput="validationform2()" class="form-control" name="adsclick" required>
                                                 <option value="1">Terms & Conditions</option>
                                                 <option value="2">Infographic</option>
-                                                <option value="3">Subscribe</option>
+                                                <!-- <option value="3">Subscribe</option> -->
                                             </select>
                                             <small class="form-text text-muted">define when a user clicks on an ads </small>
                                         </div>
+
+                                        <div id="formterms" class="col-md-12 col-sm-12">
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="row" id="formtermscontainer">
+                                                    <div id="formterms0" class="col-md-8 col-sm-8">
+                                                        <div class="form-group col-md-12 col-sm-12">
+                                                            <input type="text" class="form-control terms" onInput="validationform2()" name="terms[]" id="terms0" placeholder="Terms & Conditions 1" required>
+                                                        </div>
+                                                    </div>
+                                                    <div id="addFormsBtn" class="form-group col-md-2 col-sm-2">
+                                                        <button type="button" class="btn btn-primary col-md-12 col-sm-12" id="addnewterms"><i class="fa fa-plus-circle"></i></button>
+                                                    </div>
+                                                    <div id="minFormsBtn" class="form-group col-md-2 col-sm-2">
+                                                        <button type="button" class="btn btn-default col-md-12 col-sm-12" id="minnewterms"><i class="fa fa-minus-circle"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="forminfo" class="form-group col-md-12 col-sm-12 hidden">
+                                            <div class="col-md-12 col-sm-12">
+                                                <input type="file" class="form-control subs" onInput="validationform2()" name="infographic" id="infographic">
+                                                <small class="form-text text-muted">input file infographic</small>
+                                            </div>
+                                        </div>
+                                        
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="Verification">Verification</label>
                                             <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LcSH58UAAAAALpCs16fF8Cd-e209CGBJDXPULoQ"></div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 text-left mt-3">
                                             <button class="btn btn-primary" type="button" id="prevpageads"><i class="fa fa-arrow-left"></i> Previous </button>
-                                            <button class="btn btn-primary" name="finish" id="finish" style="float:right" disabled> Finish (Proceed Payment) <i class="fa fa-dollar-sign"></i></button>
+                                            <button class="btn btn-primary" type="submit" name="finish" id="finish" style="float:right" disabled> Finish (Proceed Payment) <i class="fa fa-dollar-sign"></i></button>
                                         </div>
                                     </div>
 
