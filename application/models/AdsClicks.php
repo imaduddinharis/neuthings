@@ -2,7 +2,7 @@
 
 use \Illuminate\Database\Eloquent\Model as Eloquent;
 
-class AdsClicks extends Eloquent {
+class Adsclicks extends Eloquent {
 
     protected $table = "ads_clicks"; // table name
     protected $fillable = ['id_ads_click',

@@ -14,8 +14,8 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="row">
-                                    <?php foreach($AdsPref as $key=>$val):
-                                        $content = AdsCont::where('id_ads_pref',$val->id_ads_pref)->get();
+                                    <?php foreach($Adspref as $key=>$val):
+                                        $content = Adscont::where('id_ads_pref',$val->id_ads_pref)->get();
                                         ?>
                                     <div class="col-md-12 mb-2">
                                         <div class="card">

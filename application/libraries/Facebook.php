@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 // Include the autoloader provided in the SDK
-require_once 'facebook-php-graph-sdk/autoload.php'; 
+require_once 'Facebook-php-graph-sdk/autoload.php'; 
 
 use Facebook\Facebook as FB;
 use Facebook\Authentication\AccessToken;

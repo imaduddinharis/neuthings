@@ -10,6 +10,8 @@ $( document ).ready(function() {
 });
 
 function validationform1() {
+  var bud = '';
+  var pri = '';
   var language = $("#languages").val();
   var city = $('#city').val();
   var state = $('#state').val();
@@ -28,6 +30,14 @@ function validationform1() {
   }else{
     $('#nextpageads').attr('disabled',true);
   }
+  
+  if(bud != budget || pri != price)
+  {
+    if(price == ''){price = 0}
+    getViewersEstimation(budget,price);
+  }
+  bud = budget;
+  pri = price;
 }
 
 function validationform2() {
@@ -133,19 +143,8 @@ function print(divName) {
 
 
 $("#printbtn").click(function(){
-
-  // var printContents = document.getElementById('printarea').innerHTML;
-  //    var originalContents = document.body.innerHTML;
-
-  //    document.body.innerHTML = printContents;
-
-  //    window.print();
-
-  //    document.body.innerHTML = originalContents;
-  //    console.log(printContents);
-  
   var divToPrint=document.getElementById('printarea');
-  var linkassets = 'http://localhost/project/neuthings/';
+  var linkassets = 'https://neuthings.id/';
   var newWin=window.open('','Print-Window');
 
   newWin.document.open();
@@ -160,5 +159,24 @@ $("#printbtn").click(function(){
   newWin.document.close();
 
   setTimeout(function(){newWin.close();},10);
+})
+
+function getViewersEstimation(budget,price) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          document.getElementById('estimation').innerHTML = xhr.responseText;
+      }
+  }
+  xhr.open('GET', 'https://neuthings.id/viewers-get/'+budget+'/'+price, true);
+  xhr.send();
+}
+
+$(document).ready(function(){
+  
+  var budget = $('#budget').val();
+  var price = $('#price').val();
+  if(price == ''){price = 0}
+  getViewersEstimation(budget,price);
 })
 

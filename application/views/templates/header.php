@@ -71,7 +71,7 @@
             <h6 class="collapse-header">Ads Management</h6>
             <a class="collapse-item" href="<?=base_url()?>ads/list">List Ads</a>
             <a class="collapse-item" href="<?=base_url()?>ads/create">Create Ads</a>
-            <a class="collapse-item" href="<?=base_url()?>ads/update">Update Ads</a>
+            <!-- <a class="collapse-item" href="<?=base_url()?>ads/update">Update Ads</a> -->
           </div>
         </div>
       </li>

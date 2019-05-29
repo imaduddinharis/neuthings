@@ -75,6 +75,12 @@
                                             </div>
                                             <small class="text-muted text-form">price in indonesia rupiah (min. IDR 100K)</small>
                                         </div>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="price">Viewers Estimation</label>
+                                            <div class="" id="estimation">
+                                                <p class="text-default"> with that package and price, you can reach <span class="text-primary"> 1000 </span> viewer(s). </p>
+                                            </div>
+                                        </div>
                                         <div class="col-md-6 col-sm-12 form-group">
                                             <label for="scheduling">Scheduling</label>
                                             <select id="scheduling" class="form-control" name="scheduling" onInput="validationform1()" required>
@@ -139,14 +145,15 @@
 
                                         <div id="forminfo" class="form-group col-md-12 col-sm-12 hidden">
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="file" class="form-control" onInput="validationform2()" name="infographic" id="infographic" required>
+                                                <!-- <input type="file" class="form-control" onInput="validationform2()" name="infographic" id="infographic"> -->
+                                                <small class="form-text text-muted">under development</small>
                                                 <small class="form-text text-muted">input file infographic</small>
                                             </div>
                                         </div>
                                         
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="Verification">Verification</label>
-                                            <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LcSH58UAAAAALpCs16fF8Cd-e209CGBJDXPULoQ"></div>
+                                            <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6Le0CaYUAAAAAP-OI8UFUOuxmHMTg2jLUb8mn04n"></div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 text-left mt-3">
                                             <button class="btn btn-primary" type="button" id="prevpageads"><i class="fa fa-arrow-left"></i> Previous </button>

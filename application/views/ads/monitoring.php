@@ -3,17 +3,18 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="<?=base_url()?>ads/monitoring/<?=$AdsPref[0]['id_ads_pref']?>">Monitoring <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="<?=base_url()?>ads/monitoring/<?=$Adspref[0]['id_ads_pref']?>">Monitoring <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?=base_url()?>ads/detail/<?=$AdsPref[0]['id_ads_pref']?>">Ads Detail</a>
+            <a class="nav-link" href="<?=base_url()?>ads/detail/<?=$Adspref[0]['id_ads_pref']?>">Ads Detail</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?=base_url()?>ads/invoice/<?=$AdsPref[0]['id_ads_pref']?>">Invoice</a>
+            <a class="nav-link" href="<?=base_url()?>ads/invoice/<?=$Adspref[0]['id_ads_pref']?>">Invoice</a>
         </li>
         </ul>
         <span class="navbar-text">
-        Neuthings | <?=$AdsCont[0]['title']?>
+        <?php if($Adspref[0]['payment_status'] == 0){$status = 'Inactive';$statusColor = 'text-danger';}else if($Adspref[0]['payment_status'] == 1){$status = 'Active';$statusColor = 'text-primary';}else{$status = 'undefined';$statusColor = 'text-warning';}?>
+        <b> Status : <span class="<?=$statusColor?>"><?=$status?></span> | <?=$Adscont[0]['title']?> </b>
         </span>
     </div>
     </nav>

@@ -1,12 +1,9 @@
 <?php if($payments[0]['status'] == '0'): ?>
-<?php $status = 'UNPAID' ;$color = 'crimson'; 
-
-$button='<button type="button" class="btn btn-info float-right" style="transform:translateY(50%)" onClick="window.location.href=`'.base_url().'pay/'.$payments[0]['id_payments'].'`"> PAY <i class="fa fa-chevron-right" style="margin-left:10px;"></i></button>'?>
-
+<?php $status = 'UNPAID' ;$color = 'crimson'; $button='<button type="submit" class="btn btn-info float-right" style="transform:translateY(50%)"> PAY <i class="fa fa-chevron-right" style="margin-left:10px;"></i></button>'?>
 <?php elseif($payments[0]['status'] == '1'):?>
 <?php $status = 'PAID' ;$color='cornflowerblue'; $button=''?>
 <?php elseif($payments[0]['status'] == '2'):?>
-<?php $status = 'EXPIRED' ;$color='crimson'; $button='<button type="button" class="btn btn-info float-right" style="transform:translateY(50%)" onClick="window.location.href=`'.base_url().'pay/'.$payments[0]['id_payments'].'`">PAY<i class="fa fa-chevron-right" style="margin-left:10px;"></i></button>'?>
+<?php $status = 'EXPIRED' ;$color='crimson'; $button='<button type="submit" class="btn btn-info float-right" style="transform:translateY(50%)"> PAY <i class="fa fa-chevron-right" style="margin-left:10px;"></i></button>'?>
 <?php endif; ?>
                         
 <div class="container-fluid" style="color:#333 !important">
@@ -32,7 +29,11 @@ $button='<button type="button" class="btn btn-info float-right" style="transform
                         </div>
                     </div>
                     <div class="col-md-12 float-right">
-                        <?= $button ?>
+                        <form method="post" action="<?=base_url()?>pay" id="payment-form">
+                            <input type="hidden" name="id_ads_pref" value="<?= $payments[0]['id_ads_pref']?>">
+                            <input type="hidden" name="id_payments" value="<?= $payments[0]['id_payments']?>">
+                            <?= $button ?>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,9 +46,9 @@ $button='<button type="button" class="btn btn-info float-right" style="transform
                     <?=
                     $userData['first_name'].' '.
                     $userData['last_name'].',<br>'.
-                    $AdsPref[0]['city'].', '.
-                    $AdsPref[0]['state'].'<br>'.
-                    $AdsPref[0]['country']
+                    $Adspref[0]['city'].', '.
+                    $Adspref[0]['state'].'<br>'.
+                    $Adspref[0]['country']
                     ?>
                 </p>
             </div>
@@ -76,9 +77,9 @@ $button='<button type="button" class="btn btn-info float-right" style="transform
         </div>
         <div class="row" style="margin-bottom:10px; padding-bottom:30px;">
         <?php 
-        $schedule = Schedules::where('id_schedule', $AdsPref[0]['scheduling'])->get();
-        $platform = Platforms::where('id_platform', $AdsPref[0]['platform'])->get();
-        $budget = Budgets::where('id_budget', $AdsPref[0]['budget'])->get();
+        $schedule = Schedules::where('id_schedule', $Adspref[0]['scheduling'])->get();
+        $platform = Platforms::where('id_platform', $Adspref[0]['platform'])->get();
+        $budget = Budgets::where('id_budget', $Adspref[0]['budget'])->get();
         ?>
             <table class="table" style="color:#333 !important;background:#FFF;padding-bottom:20px; border-radius:5px;font-family:'Source Sans Pro', sans-serif !important;font-size:14px !important;">
                 <thead>
@@ -90,11 +91,11 @@ $button='<button type="button" class="btn btn-info float-right" style="transform
                 <tbody>
                     <tr>
                         <td class="text-left">
-                            <b>Title</b>: <?= $AdsCont[0]['title'] ?> <br>
+                            <b>Title</b>: <?= $Adscont[0]['title'] ?> <br>
                             <b>Package</b>: <?= $budget[0]['budget_name']?><br>
                             <b>Schedule</b>: <?= $schedule[0]['schedule_name']?><br>
                             <b>Platform</b>: <?= $platform[0]['platform_name']?><br>
-                            <b>Location</b>: <?= $AdsPref[0]['city']?>, <?= $AdsPref[0]['state']?>, <?= $AdsPref[0]['country']?><br>
+                            <b>Location</b>: <?= $Adspref[0]['city']?>, <?= $Adspref[0]['state']?>, <?= $Adspref[0]['country']?><br>
                         </td>
                         <td class="text-right" style="vertical-align:middle">Rp. <?= number_format($payments[0]['price'],0)?></td>
                     </tr>

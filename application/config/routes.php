@@ -63,6 +63,7 @@ $route['auth-facebook'] = 'authlib/facebook_test/login';
 
 $route['dashboard'] = 'dashboardcontroller';
 
+$route['ads'] = 'adsmanagementcontroller';
 $route['ads/list'] = 'adsmanagementcontroller';
 $route['ads/create'] = 'adsmanagementcontroller/create';
 $route['ads/detail/(:any)'] = 'adsmanagementcontroller/detail/$1';
@@ -72,6 +73,10 @@ $route['ads/invoice/detail/(:any)/(:any)'] = 'adsmanagementcontroller/invoice_de
 $route['ads/update'] = 'adsmanagementcontroller/update';
 $route['ads/post'] = 'adsmanagementcontroller/post';
 $route['ads/put'] = 'adsmanagementcontroller/put';
+
+$route['viewers-get/(:any)/(:any)'] = 'adsmanagementcontroller/viewers_get/$1/$2';
+
+$route['pay'] = 'vtweb/vtweb_checkout';
 
 $route['about/kebijakan-privasi'] = 'dashboard';
 $route['about/ketentuan-layanan'] = 'dashboard';

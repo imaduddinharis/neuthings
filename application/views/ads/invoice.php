@@ -3,17 +3,18 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-            <a class="nav-link" href="<?=base_url()?>ads/monitoring/<?=$AdsPref[0]['id_ads_pref']?>">Monitoring</a>
+            <a class="nav-link" href="<?=base_url()?>ads/monitoring/<?=$Adspref[0]['id_ads_pref']?>">Monitoring</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?=base_url()?>ads/detail/<?=$AdsPref[0]['id_ads_pref']?>">Ads Detail</a>
+            <a class="nav-link" href="<?=base_url()?>ads/detail/<?=$Adspref[0]['id_ads_pref']?>">Ads Detail</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="<?=base_url()?>ads/invoice/<?=$AdsPref[0]['id_ads_pref']?>">Invoice <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="<?=base_url()?>ads/invoice/<?=$Adspref[0]['id_ads_pref']?>">Invoice <span class="sr-only">(current)</span></a>
         </li>
         </ul>
         <span class="navbar-text">
-        Neuthings | <?=$AdsCont[0]['title']?>
+        <?php if($Adspref[0]['payment_status'] == 0){$status = 'Inactive';$statusColor = 'text-danger';}else if($Adspref[0]['payment_status'] == 1){$status = 'Active';$statusColor = 'text-primary';}else{$status = 'undefined';$statusColor = 'text-warning';}?>
+        <b> Status : <span class="<?=$statusColor?>"><?=$status?></span> | <?=$Adscont[0]['title']?> </b>
         </span>
     </div>
     </nav>
@@ -50,8 +51,8 @@
                         <tr <?= $style ?>>
                             <td>#<?= $value->id_ads_pref.$value->id_payments ?></td>
                             <td><?= date('d F Y', strtotime($value->created_at))?></td>
-                            <td><?= date('d F Y', strtotime('+30 days', strtotime($value->created_at))) ?></td>
-                            <td><?= $value->price?></td>
+                            <td><?= date('d F Y', strtotime('+2 days', strtotime($value->created_at))) ?></td>
+                            <td>Rp. <?= number_format($value->price,0)?></td>
                             <td><?= $status ?> <a href="<?=base_url()?>ads/invoice/detail/<?=$value->id_ads_pref?>/<?=$value->id_payments?>"><span id="chevright"><i class="fa fa-chevron-right"></i></span></a></td>
                         </tr>
                         <?php endforeach; ?>

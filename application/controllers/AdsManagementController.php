@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class AdsManagementController extends CI_Controller {
+class Adsmanagementcontroller extends CI_Controller {
 
     var $path = '';
     public function __construct()
@@ -13,20 +13,21 @@ class AdsManagementController extends CI_Controller {
         {
             redirect(base_url().'auth');
         }
-        $this->load->model('AdsPref');
-        $this->load->model('AdsCont');
+        $this->load->model('Adspref');
+        $this->load->model('Adscont');
         $this->load->model('Platforms');
         $this->load->model('Schedules');
         $this->load->model('Budgets');
-        $this->load->model('AdsClicks');
+        $this->load->model('Adsclicks');
         $this->load->model('Terms');
         $this->load->model('Payments');
+        $this->load->model('Viewers');
     }
 
 	public function index()
 	{
         $data['userData'] = $this->session->userdata('userData');
-        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])->get();
+        $data['Adspref'] = Adspref::where('email',$data['userData']['email'])->get();
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
         $data['content']=$this->load->view('ads/index',$data, true);
@@ -37,10 +38,10 @@ class AdsManagementController extends CI_Controller {
     public function detail($id)
 	{
         $data['userData'] = $this->session->userdata('userData');
-        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+        $data['Adspref'] = Adspref::where('email',$data['userData']['email'])
                                     ->where('id_ads_pref',$id)
                                     ->get();
-        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+        $data['Adscont'] = Adscont::where('id_ads_pref',$id)
                                     ->get();
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
@@ -51,10 +52,10 @@ class AdsManagementController extends CI_Controller {
     public function monitoring($id)
 	{
         $data['userData'] = $this->session->userdata('userData');
-        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+        $data['Adspref'] = Adspref::where('email',$data['userData']['email'])
                                     ->where('id_ads_pref',$id)
                                     ->get();
-        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+        $data['Adscont'] = Adscont::where('id_ads_pref',$id)
                                     ->get();
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
@@ -65,10 +66,10 @@ class AdsManagementController extends CI_Controller {
     public function invoice($id)
 	{
         $data['userData'] = $this->session->userdata('userData');
-        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+        $data['Adspref'] = Adspref::where('email',$data['userData']['email'])
                                     ->where('id_ads_pref',$id)
                                     ->get();
-        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+        $data['Adscont'] = Adscont::where('id_ads_pref',$id)
                                     ->get();
         $data['payments'] = Payments::where('id_ads_pref', $id)
                                     ->get();
@@ -91,10 +92,10 @@ class AdsManagementController extends CI_Controller {
     public function invoice_detail($id,$idpayments)
 	{
         $data['userData'] = $this->session->userdata('userData');
-        $data['AdsPref'] = AdsPref::where('email',$data['userData']['email'])
+        $data['Adspref'] = Adspref::where('email',$data['userData']['email'])
                                     ->where('id_ads_pref',$id)
                                     ->get();
-        $data['AdsCont'] = AdsCont::where('id_ads_pref',$id)
+        $data['Adscont'] = Adscont::where('id_ads_pref',$id)
                                     ->get();
         $data['payments'] = Payments::where('id_ads_pref', $id)
                                     ->where('id_payments', $idpayments)
@@ -154,11 +155,11 @@ class AdsManagementController extends CI_Controller {
         {
             
             $uploaded = $this->uploading();
-            $createPref = AdsPref::create($adsPref);
+            $createPref = Adspref::create($adsPref);
             $id = array('photo'         => $this->path,
                         'id_ads_pref'   => $createPref->id);
             $adsCont = array_merge($adsCont,$id);
-            $createCont = AdsCont::create($adsCont);
+            $createCont = Adscont::create($adsCont);
             $adsPayment = array(
                 'id_ads_pref'   => $createPref->id,
                 'price'         => $this->input->post('price'),
@@ -242,11 +243,11 @@ class AdsManagementController extends CI_Controller {
 
     public function uploading(){
         $uploaded;
-		$config['upload_path']          = './ads/content';
+		$config['upload_path']          = './adsfolder/content';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 5000000;
-		$config['max_width']            = 1024;
-        $config['max_height']           = 768;
+		$config['max_size']             = 50000000;
+		$config['max_width']            = 2000;
+        $config['max_height']           = 2000;
         $config['file_name']            = date('dmyhis').$_FILES['photo']['name'];
  
 		$this->load->library('upload', $config);
@@ -259,7 +260,7 @@ class AdsManagementController extends CI_Controller {
             //     'uploaded'  => false
             // );
 		}else{
-            $this->path = base_url().'ads/content/'.$config['file_name'];
+            $this->path = base_url().'adsfolder/content/'.$config['file_name'];
             // return true;
             $uploaded = true;
             // $data = array(
@@ -268,5 +269,26 @@ class AdsManagementController extends CI_Controller {
             // );
         }
         return $uploaded;
-	}
+    }
+    
+    public function viewers_get($budget,$price)
+    {
+        $dataEstimation = Viewers::where('budget',$budget)->get();
+        foreach($dataEstimation as $key=>$value)
+        {
+            if($price == 0 || $price == ''){
+                $viewers = '0';
+            }
+            else if($price >= $value->price_start && $price < $value->price_max
+            )
+            {
+                $viewers = $value->estimation;
+            }else if($price >= $value->price_start && $price >= $value->price_max)
+            {
+                $viewers = 'more than '.$value->estimation;
+            }
+        }
+        $data = '<p class="text-default"> with that package and price, you can reach <span class="text-primary"> '.$viewers.' </span> viewer(s). </p>';
+        echo $data;
+    }
 }
