@@ -225,7 +225,7 @@
     </div>
   </section>
 
-  <button id="chatbutton" class="btn btn-secondary" style="position: fixed; bottom: 23px; right: 28px;"><i class="fa fa-comment-o"></i> Livechat</button>
+  <!-- <button id="chatbutton" class="btn btn-secondary" style="position: fixed; bottom: 23px; right: 28px;"><i class="fa fa-comment-o"></i> Livechat</button>
   <div class="card" style="position: fixed; bottom: 70px; right: 28px; width: 350px; max-height: 500px; display: none;" id="chatbox">
     <div class="card-header bg-primary bg- text-white">
       <i class="fa fa-arrow-circle-o-left" id="chatback" style="display: none;"></i> Chat Title
@@ -275,7 +275,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Footer -->
   <footer class="bg-light py-3">
