@@ -158,7 +158,7 @@
           Check your ads clicks per day
         </div>
         <div class="col-md-6 d-none d-sm-block">
-            <img src="<?=base_url()?>asset/img/viewday.png" alt="image" class="img-fluid">
+            <img src="<?=base_url()?>asset/img/clickday.png" alt="image" class="img-fluid">
         </div>
       </div>
       <div class="row mt-5">
