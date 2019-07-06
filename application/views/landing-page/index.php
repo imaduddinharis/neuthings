@@ -75,10 +75,10 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center">
-          <h1 class="text-white mt-0">your ads is our <br><strong>PRIORITY</strong></h1>
+          <h1 class="text-white mt-0"><strong>YOUR ADS IS OUR PRIORITY</strong></h1>
           <hr class="divider light my-4">
           <p class="text-white-50 mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non posuere justo. Morbi a orci nec arcu accumsan hendrerit. Pellentesque ut tincidunt neque. Etiam vel nulla mauris.
+          Neuthings is an advertising management platform aimed at all platforms that have a partnership relationship with the Telkom Group. The ads that you register will be displayed according to your choice and budget
           </p>
         </div>
       </div>
@@ -95,28 +95,28 @@
           <div class="mt-5">
             <i class="fa fa-4x fa-lightbulb-o text-primary mb-4"></i>
             <h3 class="h4 mb-2">Create</h3>
-            <p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non posuere justo.</p>
+            <p class="text-muted mb-0">Create your advertisement by adjusting the appearance and money you have, and the platform for the advertisement displayed</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
             <i class="fa fa-4x fa-pencil text-primary mb-4"></i>
             <h3 class="h4 mb-2">Update</h3>
-            <p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non posuere justo.</p>
+            <p class="text-muted mb-0">Update your ad in terms of appearance, budget and platform</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
             <i class="fa fa-4x fa-bullhorn text-primary mb-4"></i>
             <h3 class="h4 mb-2">Monitor</h3>
-            <p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non posuere justo.</p>
+            <p class="text-muted mb-0">See how much your ad is showing directly</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
             <i class="fa fa-4x fa-comments-o text-primary mb-4"></i>
             <h3 class="h4 mb-2">Consult</h3>
-            <p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non posuere justo.</p>
+            <p class="text-muted mb-0">Consult your business needs with our services to choose the right advertising package</p>
           </div>
         </div>
       </div>
@@ -127,8 +127,8 @@
   <section class="page-section bg-dark text-white">
     <div class="container text-center">
       <h2 class="mb-4">Dare to start?</h2>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod at numquam error cum voluptatibus nobis sunt, eaque officiis maiores inventore voluptate optio excepturi culpa corporis velit dolor ad a nulla.</p>
-      <a class="btn btn-primary btn-lg" href="https://startbootstrap.com/themes/creative/">Discover more</a>
+      <p>If you are interested in our services, please click on login</p>
+      <a class="btn btn-primary btn-lg" href="<?=base_url()?>auth">Getting Started</a>
     </div>
   </section>
 
@@ -142,46 +142,34 @@
       </div>
       <div class="row mt-5">
         <div class="col-md-6">
-          <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
+          <img src="<?=base_url()?>asset/img/viewday.png" alt="image" class="img-fluid">
         </div>
         <div class="col-md-6">
-          <h4>title</h4>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis magni, accusamus pariatur eaque sequi sint sapiente iusto enim laboriosam quis aut ut molestiae minima praesentium recusandae possimus. Est, eligendi nemo!
+          <h4>Views per Day</h4>
+          Check your ads viewers per day
         </div>
       </div>
       <div class="row mt-5">
         <div class="col-md-6 d-xs-block d-sm-block d-md-none d-lg-none">
-            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
+            <img src="<?=base_url()?>asset/img/clickday.png" alt="image" class="img-fluid">
         </div>
         <div class="col-md-6">
-          <h4>title</h4>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo suscipit ipsum ad iusto sequi enim dolores quibusdam odio repellat placeat, esse accusamus architecto non qui ipsam quidem doloremque, eaque nobis.
+          <h4>Clicks per Day</h4>
+          Check your ads clicks per day
         </div>
         <div class="col-md-6 d-none d-sm-block">
-            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
+            <img src="<?=base_url()?>asset/img/viewday.png" alt="image" class="img-fluid">
         </div>
       </div>
       <div class="row mt-5">
         <div class="col-md-6">
-            <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
+            <img src="<?=base_url()?>asset/img/topads.png" alt="image" class="img-fluid">
         </div>
         <div class="col-md-6">
-          <h4>title</h4>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel quas placeat sapiente vitae nulla quaerat voluptas nesciunt quasi cumque. Deserunt assumenda totam nam veniam dolore! Accusamus tempore perspiciatis necessitatibus animi.
+          <h4>Top Ads</h4>
+          Check your top ad, so you can determine which ad is effective for your business
         </div>
       </div>
-      <div class="row mt-5">
-          <div class="col-md-6 d-xs-block d-sm-block d-md-none d-lg-none">
-              <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
-          </div>
-          <div class="col-md-6">
-            <h4>title</h4>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo suscipit ipsum ad iusto sequi enim dolores quibusdam odio repellat placeat, esse accusamus architecto non qui ipsam quidem doloremque, eaque nobis.
-          </div>
-          <div class="col-md-6 d-none d-sm-block">
-              <img src="https://dummyimage.com/600x400/000/ffffff" alt="image" class="img-fluid">
-          </div>
-        </div>
     </div>
   </section>
 
@@ -193,7 +181,7 @@
           <h2 class="mt-0">Contact us</h2>
           <hr class="divider light my-4">
           <p class="mb-5">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo nostrum, deleniti ex rerum consequatur corporis minus, impedit distinctio asperiores voluptas quibusdam totam non porro aspernatur animi similique corrupti amet hic.
+            
           </p>
         </div>
       </div>
@@ -201,19 +189,21 @@
         <div class="col-md-4 text-center">
           <h3 class="text-primary mt-5 mb-5">SAY HELLO</h3>
           <p class="text-muted">
-            Phone : 123-456-789
-            <br>Email : mail@neuthings.com</p>
-            <p class="text-muted mb-5"><i class="fa fa-facebook"></i>&emsp;<i class="fa fa-twitter"></i>&emsp;<i class="fa fa-instagram"></i>
+            Phone : +62 821-3469-0067
+            <br>Email : admin@neuthings.com</p>
+            <p class="text-muted mb-5">
+            <i class="fa fa-facebook"></i>&emsp;
+            <i class="fa fa-twitter"></i>&emsp;
+            <i class="fa fa-instagram"></i>
           </p>
         </div>
         <div class="col-md-4 text-center">
           <h3 class="text-primary mt-5 mb-5">OUR ADDRESS</h3>
           <p class="text-muted mb-5">
-              Jakarta Digital Valley,<br>
-              Telkom Landmark Tower Lt. 38<br>
-              Jl. Gatot Subroto Kav. 52,<br>
-              Mampang Prapatan, Jakarta Selatan
-            </p>
+              Telkom Regional I Sumatera,<br>
+              Jl. Prof. HM. Yamin Sh No.2,<br>
+              Kesawan, Kec. Medan Bar.,<br> Kota Medan, Sumatera Utara 20236
+          </p>
         </div>
         <div class="col-md-4 text-center">
             <h3 class="text-primary mt-5 mb-5">OPENING HOURS</h3>
