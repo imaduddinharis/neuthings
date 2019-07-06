@@ -270,7 +270,7 @@
   <!-- Footer -->
   <footer class="bg-light py-3">
     <div class="container">
-      <div class="small text-center text-muted">Copyright &copy; 2019 - Neuthings</div>
+      <div class="small text-center text-muted">2019 &copy; <a href="https://www.instagram.com/issolutions/">Neuthings</a> | <a href="https://www.instagram.com/issolutions/">Integrated System Solutions </a></div>
     </div>
   </footer>
 
