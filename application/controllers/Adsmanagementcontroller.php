@@ -421,4 +421,11 @@ class Adsmanagementcontroller extends CI_Controller {
         return $response;
         } 
     }
+
+    public function payfinish()
+    {
+        $order_id = $this->input->get('order_id');
+        $ex = explode('-',$order_id);
+        redirect(base_url().'ads/invoice/detail/'.$ex[1].'/'.$ex[1]);
+    }
 }
