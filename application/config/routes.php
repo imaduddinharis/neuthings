@@ -77,7 +77,7 @@ $route['ads/put'] = 'adsmanagementcontroller/put';
 $route['viewers-get/(:any)/(:any)'] = 'adsmanagementcontroller/viewers_get/$1/$2';
 
 $route['pay'] = 'vtweb/vtweb_checkout';
-$route['finish'] = 'adsmanagementcontroller/payfinish';
+$route['pay/finish'] = 'adsmanagementcontroller/payfinish';
 
 $route['about/kebijakan-privasi'] = 'dashboard';
 $route['about/ketentuan-layanan'] = 'dashboard';
