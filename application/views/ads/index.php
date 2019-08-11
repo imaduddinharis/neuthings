@@ -14,8 +14,17 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="row">
-                                    <?php foreach($Adspref as $key=>$val):
+                                    <?php 
+                                    if(count($Adspref)>0){
+                                    foreach($Adspref as $key=>$val):
                                         $content = Adscont::where('id_ads_pref',$val->id_ads_pref)->get();
+                                        $CI =& get_instance();
+                                        $gets = $CI->getAdsApi($val->id_ads_pref);
+                                        $getAdsApi = json_decode($gets);
+                                        $status = 'Inactive';
+                                        if($getAdsApi->data->isActive != 0){
+                                            $status = 'Active';
+                                        }
                                         ?>
                                     <div class="col-md-12 mb-2">
                                         <div class="card">
@@ -27,16 +36,17 @@
                                                     <div class="col-md-10">
                                                         <h4><a href="<?=base_url()?>ads/detail/<?=$val->id_ads_pref?>"><?= $content[0]['title'] ?></a></h4>
                                                         <hr>
-                                                        <p><i class="fa fa-eye"></i> 156.000 &emsp;<i class="fa fa-mouse-pointer"></i></i> 50&emsp;</p>
+                                                        <p><i class="fa fa-eye"></i> <?=$getAdsApi->data->_view?> &emsp;<i class="fa fa-mouse-pointer"></i></i> <?=$getAdsApi->data->_click?>&emsp; Status: <?=$status?></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <?php endforeach; ?>
-                                    <div class="col-md-12 text-center mt-5">
-                                        <a href="#">See more..</a>
+                                    <?php endforeach; }else{?>
+                                    <div class="col-md-12 text-center">
+                                        <h6>No Ads Available</h6>
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

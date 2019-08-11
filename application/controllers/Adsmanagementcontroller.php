@@ -4,6 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Adsmanagementcontroller extends CI_Controller {
 
     var $path = '';
+    var $API = 'http://pushadsdev.amandjaja.com/frog/oapi/';
+    var $param = '?tcx_datetime=20181230235959';
+    var $TYPE = 'FTC';
+    var $APPID = 'neuthings.id';
+    var $APPPASS = 'NTRiZGYxNjVmYzExY2RmMjFhMDIzMjJiZTc3NzE1NmZmNDhiMTVjNzphYmNkZTEyMzQ1YWJjZGU=';
+    var $APPTOKEN = 'MWI4OTFlNmJmN2ZkNmZjMTEzMzdhMjNkZWIyYjliMmNmNmM2NmE0Ng==';
+    var $imglink = 'http://pushadsdev.amandjaja.com/data/advertisement/image/';
+
+
     public function __construct()
     {
         parent::__construct();
@@ -28,6 +37,11 @@ class Adsmanagementcontroller extends CI_Controller {
 	{
         $data['userData'] = $this->session->userdata('userData');
         $data['Adspref'] = Adspref::where('email',$data['userData']['email'])->get();
+
+        // $getAds = json_decode($this->getAdsApi(50));
+        // var_dump($data['Adspref']);
+        // return false;
+
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
         $data['content']=$this->load->view('ads/index',$data, true);
@@ -57,6 +71,7 @@ class Adsmanagementcontroller extends CI_Controller {
                                     ->get();
         $data['Adscont'] = Adscont::where('id_ads_pref',$id)
                                     ->get();
+        $data['ads']     = json_decode($this->getAdsApi($id));
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
         $data['content']=$this->load->view('ads/monitoring',$data, true);
@@ -129,7 +144,10 @@ class Adsmanagementcontroller extends CI_Controller {
 
     public function post()
     {
+        $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('budget'),1000));
+        
         $adsPref = array(
+            'id_ads_pref'   => $postApi->data->id,
             'languages'     => $this->input->post('languages'),
             'email'         => $this->session->userdata('userData')['email'],
             'city'          => $this->input->post('city'),
@@ -154,20 +172,23 @@ class Adsmanagementcontroller extends CI_Controller {
         if($this->validation($datas))
         {
             
-            $uploaded = $this->uploading();
+            // $uploaded = $this->uploading();
+            $upload = json_decode($this->postAdsImageAPI($postApi->data->id));
+            // var_dump($upload);
+            // return false;
             $createPref = Adspref::create($adsPref);
-            $id = array('photo'         => $this->path,
-                        'id_ads_pref'   => $createPref->id);
+            $id = array('photo'         => $this->imglink.$upload->data->link,
+                        'id_ads_pref'   => $postApi->data->id);
             $adsCont = array_merge($adsCont,$id);
             $createCont = Adscont::create($adsCont);
             $adsPayment = array(
-                'id_ads_pref'   => $createPref->id,
+                'id_ads_pref'   => $postApi->data->id,
                 'price'         => $this->input->post('price'),
                 'status'        => 0,
             );
             Payments::create($adsPayment);
             if($this->input->post('adsclick') == 1){
-                $getTerms = $this->getTerms($this->input->post('terms'),$createPref->id);
+                $getTerms = $this->getTerms($this->input->post('terms'),$postApi->data->id);
                 // var_dump($getTerms);
                 // return false;
                 $postAdsClick = Terms::insert($getTerms);
@@ -182,7 +203,7 @@ class Adsmanagementcontroller extends CI_Controller {
             // $create = false;
             // var_dump($uploaded);
             //     return false;
-            if($createPref && $createCont && $uploaded && $postAdsClick)
+            if($createPref && $createCont && $upload->status_code == 'SSSSSS' && $postAdsClick)
             {
                 redirect(base_url().'ads/list');
             }else
@@ -241,9 +262,44 @@ class Adsmanagementcontroller extends CI_Controller {
         return $dataTerms;
     }
 
+    public function postAdsImageAPI($id){
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API."advertisement/image".$this->param,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => array('advertisement_id' => $id,
+                                    'image_size_id' => '15',
+                                    'image'=> new CURLFILE($_FILES['photo']['tmp_name'])),
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+    }
+
     public function uploading(){
         $uploaded;
-		$config['upload_path']          = './adsfolder/content';
+		$config['upload_path']          = $this->imglink;
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['max_size']             = 50000000;
 		$config['max_width']            = 2000;
@@ -290,5 +346,79 @@ class Adsmanagementcontroller extends CI_Controller {
         }
         $data = '<p class="text-default"> with that package and price, you can reach <span class="text-primary"> '.$viewers.' </span> viewer(s). </p>';
         echo $data;
+    }
+
+    public function postAdsApi($name,$type,$budget,$target)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API.'advertisement'.$this->param,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => array('group_id' => '20',
+                                    'name' => $name,
+                                    'type' => $type,
+                                    '_start' => '2019-07-18',
+                                    '_end' => '2019-07-30',
+                                    'budget' => $budget,
+                                    'price' => $budget,
+                                    'target' => $target),
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+    }
+
+    public function getAdsApi($id)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API.'advertisement'.$this->param.'&id='.$id,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
     }
 }

@@ -146,6 +146,7 @@
                                         
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="Verification">Verification</label>
+                                            <!-- <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LegfrIUAAAAAAEvKryMjpsBRpNO99cUvJJLVyfD"></div> -->
                                             <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6Le0CaYUAAAAAP-OI8UFUOuxmHMTg2jLUb8mn04n"></div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 text-left mt-3">
