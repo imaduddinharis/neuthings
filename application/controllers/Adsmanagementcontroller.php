@@ -31,6 +31,8 @@ class Adsmanagementcontroller extends CI_Controller {
         $this->load->model('Terms');
         $this->load->model('Payments');
         $this->load->model('Viewers');
+        $this->load->model('Users');
+        $this->load->model('Chats');
     }
 
 	public function index()
@@ -125,6 +127,10 @@ class Adsmanagementcontroller extends CI_Controller {
     public function create()
 	{
         $data['userData'] = $this->session->userdata('userData');
+        $data['kotas']     = json_decode($this->getKotasApi());
+        // var_dump($data['kotas']);
+        // return false;
+        $data['witels']     = json_decode($this->getWitelsApi());
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
         $data['content']=$this->load->view('ads/create',$data, true);
@@ -132,19 +138,28 @@ class Adsmanagementcontroller extends CI_Controller {
 		$this->load->view('index',$data);
     }
 
-    public function update()
+    public function update($id)
 	{
         $data['userData'] = $this->session->userdata('userData');
+        $data['Adspref'] = Adspref::where('email',$data['userData']['email'])
+                                    ->where('id_ads_pref',$id)
+                                    ->get();
+        $data['Adscont'] = Adscont::where('id_ads_pref',$id)
+                                    ->get();
+        $data['kotas']     = json_decode($this->getKotasApi());
+        // var_dump($data['kotas']);
+        // return false;
+        $data['witels']     = json_decode($this->getWitelsApi());
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
-        $data['content']=$this->load->view('maintenance/index',$data, true);
+        $data['content']=$this->load->view('ads/update',$data, true);
         $data['footer']=$this->load->view('templates/footer',$data, true);
 		$this->load->view('index',$data);
     }
 
     public function post()
     {
-        $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('budget'),1000));
+        $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('budget'),8000,intVal($this->input->post('budget')/8000)));
         
         $adsPref = array(
             'id_ads_pref'   => $postApi->data->id,
@@ -210,6 +225,10 @@ class Adsmanagementcontroller extends CI_Controller {
             {
                 $data['userData'] = $this->session->userdata('userData');
                 $data['formValue'] = $datas;
+                $data['kotas']     = json_decode($this->getKotasApi());
+                // var_dump($data['kotas']);
+                // return false;
+                $data['witels']     = json_decode($this->getWitelsApi());
                 $data['title'] = 'Neuthings | Dashboard';
                 $data['header']=$this->load->view('templates/header',$data, true);
                 $data['content']=$this->load->view('ads/create-fail',$data, true);
@@ -221,7 +240,32 @@ class Adsmanagementcontroller extends CI_Controller {
 
     public function put()
     {
+        $ads     = json_decode($this->getAdsApi($this->input->post('idads')));
+        $putApi = json_decode($this->putAdsApi($this->input->post('title'),01,$ads->data->budget,$ads->data->price,$ads->data->target,$ads->data->_start,$ads->data->_end,$ads->data->id));
+        // var_dump($putApi);
+        // return false;
         
+        
+        $adsPref = array(
+            'city'          => $this->input->post('city'),
+            'state'         => $this->input->post('state'),
+            'scheduling'    => $this->input->post('scheduling'),
+            'platform'      => $this->input->post('platform')
+        );
+        AdsPref::where('id_ads_pref',$this->input->post('idads'))->update($adsPref);
+        if($_FILES['photo']['tmp_name']!=''){
+        $upload = json_decode($this->putAdsImageAPI($this->input->post('idads')));    
+            $adsCont = array(
+            'title'         => $this->input->post('title'),
+            'photo'         => $this->imglink.$upload->data->link
+            );
+        }else{
+            $adsCont = array(
+                'title'         => $this->input->post('title')
+            );
+        }
+        Adscont::where('id_ads_pref',$this->input->post('idads'))->update($adsCont);
+        redirect(base_url().'ads/detail/'.$this->input->post('idads'));
     }
 
     public function validation($data)
@@ -275,8 +319,45 @@ class Adsmanagementcontroller extends CI_Controller {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => array('advertisement_id' => $id,
-                                    'image_size_id' => '15',
+                                    'image_size_id' => 'REC_640_720',
                                     'image'=> new CURLFILE($_FILES['photo']['tmp_name'])),
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+    }
+
+    public function putAdsImageAPI($id){
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API."advertisement/image".$this->param,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => array('advertisement_id' => $id,
+                                    'image_size_id' => 'REC_640_720',
+                                    'image'=> new CURLFILE($_FILES['photo']['tmp_name']),
+                                    'id' => $id,
+                                    '_method' => 'put'),
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
             "X-TCX-APP-ID: ".$this->APPID,
@@ -348,7 +429,7 @@ class Adsmanagementcontroller extends CI_Controller {
         echo $data;
     }
 
-    public function postAdsApi($name,$type,$budget,$target)
+    public function postAdsApi($name,$type,$budget,$price,$target)
     {
         $curl = curl_init();
 
@@ -367,8 +448,52 @@ class Adsmanagementcontroller extends CI_Controller {
                                     '_start' => '2019-07-18',
                                     '_end' => '2019-07-30',
                                     'budget' => $budget,
-                                    'price' => $budget,
+                                    'price' => $price,
                                     'target' => $target),
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+    }
+    
+    public function putAdsApi($name,$type,$budget,$price,$target,$start,$end,$id)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API.'advertisement'.$this->param,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => array('group_id' => '20',
+                                    'name' => $name,
+                                    'type' => $type,
+                                    '_start' => $start,
+                                    '_end' => $end,
+                                    'budget' => $budget,
+                                    'price' => $price,
+                                    'target' => $target,
+                                    'id' => $id,
+                                    '_method' => 'put',
+                                    ),
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
             "X-TCX-APP-ID: ".$this->APPID,
@@ -422,10 +547,131 @@ class Adsmanagementcontroller extends CI_Controller {
         } 
     }
 
+    public function getKotasApi()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API.'telkomap/kota'.$this->param,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+    }
+
+    public function getWitelsApi()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API.'telkomap/witel'.$this->param,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+    }
+
     public function payfinish()
     {
         $order_id = $this->input->get('order_id');
         $ex = explode('-',$order_id);
         redirect(base_url().'ads/invoice/detail/'.$ex[1].'/'.$ex[2]);
+    }
+    public function get()
+    {
+        $cust = $_GET['email'];
+        $chat = Chats::where('cust',$cust)->get();
+        $chatReturn = '';
+        foreach($chat as $chats){
+            if($chats->sender != $cust)
+            {
+                Chats::where('chat_id',$chats->chat_id)->update(['status'=>0]);
+                $user = Users::where('email',$cust)->get();
+                $position = '<div class="row mb-4">
+                <div class="col-md-3">
+                  <img src="https://dummyimage.com/70x70/000/ffffff" alt="" class=" rounded-circle">
+                </div>
+                <div class="col-md-9">
+                  <div class="card">
+                    <div class="card-body">
+                      <small>'.$chats->message.'</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              ';
+            }else{
+                $user = Users::where('email',$cust)->get();
+                $position = '<div class="row mb-4">
+                <div class="col-md-9">
+                  <div class="card">
+                    <div class="card-body">
+                      <small>'.$chats->message.'</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <img src="'.$user[0]['picture'].'" alt="" class=" rounded-circle">
+                </div>
+              </div>';
+            }
+        $chatReturn .= $position;
+        
+        }
+        echo $chatReturn;
+    }
+
+    public function send()
+	{
+        $cust = $_GET['email'];
+        $dataChat = array(
+            'message'   => $this->input->post('message'),
+            'sender'    => $cust,
+            'cust'      => $cust,
+            'receiver'  => 'admin||neuthings'
+        );
+        Chats::create($dataChat);
     }
 }

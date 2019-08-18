@@ -1,0 +1,78 @@
+{
+    "status": 1,
+    "status_number": 255,
+    "status_code": "SSSS",
+    "status_message": "Data provided",
+    "data": [
+        {
+            "_date": "2019-06-01",
+            "parent_id": 0,
+            "application_id": 2,
+            "unique_session": "8",
+            "unique_ip": "8",
+            "unique_device": "9",
+            "hit": "72",
+            "avg_time": null
+        },
+        {
+            "_date": "2019-06-02",
+            "parent_id": 0,
+            "application_id": 2,
+            "unique_session": "6",
+            "unique_ip": "5",
+            "unique_device": "5",
+            "hit": "84",
+            "avg_time": null
+        },
+        {
+            "_date": "2019-06-03",
+            "parent_id": 0,
+            "application_id": 2,
+            "unique_session": "4",
+            "unique_ip": "3",
+            "unique_device": "3",
+            "hit": "46",
+            "avg_time": null
+        },
+        {
+            "_date": "2019-06-04",
+            "parent_id": 0,
+            "application_id": 2,
+            "unique_session": "7",
+            "unique_ip": "7",
+            "unique_device": "6",
+            "hit": "49",
+            "avg_time": null
+        },
+        {
+            "_date": "2019-06-05",
+            "parent_id": 0,
+            "application_id": 2,
+            "unique_session": "8",
+            "unique_ip": "5",
+            "unique_device": "4",
+            "hit": "37",
+            "avg_time": null
+        },
+        {
+            "_date": "2019-06-06",
+            "parent_id": 0,
+            "application_id": 2,
+            "unique_session": "6",
+            "unique_ip": "3",
+            "unique_device": "5",
+            "hit": "47",
+            "avg_time": null
+        },
+        {
+            "_date": "2019-06-07",
+            "parent_id": 0,
+            "application_id": 2,
+            "unique_session": "4",
+            "unique_ip": "4",
+            "unique_device": "4",
+            "hit": "30",
+            "avg_time": null
+        }
+    ]
+}

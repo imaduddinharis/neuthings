@@ -1,0 +1,15 @@
+{
+    "status": 1,
+    "status_number": 255,
+    "status_code": "SSSS",
+    "status_message": "Data provided",
+    "data": {
+        "parent_id": 0,
+        "application_id": 2,
+        "unique_session": "43",
+        "unique_ip": "35",
+        "unique_device": "36",
+        "hit": "365",
+        "avg_time": null
+    }
+}

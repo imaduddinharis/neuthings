@@ -14,7 +14,7 @@
         </ul>
         <span class="navbar-text">
         <?php if($Adspref[0]['payment_status'] == 0){$status = 'Inactive';$statusColor = 'text-danger';}else if($Adspref[0]['payment_status'] == 1){$status = 'Active';$statusColor = 'text-primary';}else{$status = 'undefined';$statusColor = 'text-warning';}?>
-        <b> Status : <span class="<?=$statusColor?>"><?=$status?></span> | <?=$Adscont[0]['title']?> </b>
+        <b> Status : <span class="<?=$statusColor?>"><?=$status?></span> | <?=$Adscont[0]['title']?> <a href="<?=base_url()?>ads/update/<?=$Adspref[0]['id_ads_pref']?>" style="color:cornflowerblue"><i class="fa fa-pen-square"></i></a> </b>
         </span>
     </div>
     </nav>

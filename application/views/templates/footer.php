@@ -5,7 +5,7 @@
       <div class="card-header bg-primary bg- text-white">
         <!-- <i class="fa fa-chevron-left" id="chatback" style="display: none; cursor:pointer;margin-right:5px;"></i>  -->
         Neuthings Customer Service
-        <i style="width:10px;height:10px;background-color:red;color:red;border-radius:100%; display:inline-block"></i> Offline
+        <!-- <i style="width:10px;height:10px;background-color:red;color:red;border-radius:100%; display:inline-block"></i> Offline -->
         <!-- <span><span>Online -->
       </div>
       <div class="card-body" style="overflow-y: scroll">
@@ -39,10 +39,10 @@
       <div class="card-footer" id="chatfooter" style="">
         <div class="row">
           <div class="col-md-9">
-            <textarea class="form-control" rows="1" style="font-size: small;"></textarea>
+            <textarea class="form-control" rows="1" style="font-size: small;" id="message"></textarea>
           </div>
           <div class="col-md-3 d-flex align-items-center">
-            <button class="btn btn-primary btn-block"><i class="fa fa-paper-plane"></i></button>
+            <button  onclick="insert()" class="btn btn-primary btn-block"><i class="fa fa-paper-plane"></i></button>
           </div>
         </div>
       </div>
@@ -110,9 +110,9 @@
   <!-- MDBootstrap Steppers Pro  -->
   <script type="text/javascript" src="<?=base_url()?>assets/admin/js/step.js"></script>
   <script>
-    $(document).ready(function () {
-    $('.stepper').mdbStepper();
-    })
+    // $(document).ready(function () {
+    // $('.stepper').mdbStepper();
+    // })
   </script>
 
   <!-- datatables -->
@@ -151,17 +151,56 @@
 <!-- enddatatables -->
 <!-- livevchat -->
 <script>
+  var baseurl = $('#baseurl').val();
+  var interval = null;
+  var email = '<?=$this->session->userdata('userData')['email']?>';
+  function view() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById('chatbar').innerHTML = xhr.responseText;
+            }
+        }
+        xhr.open('GET', baseurl+'chat-cust-get?email='+email, true);
+        xhr.send();
+  }
+  function insert() {
+        if($('#message').val() != ''){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                xhr.responseText;
+            }
+        }
+        var message = $('#message').val();
+        console.log(message);
+        xhr.open('POST', baseurl+'chat-cust-send?email='+email, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('chatname=user' + '&message=' + message);
+        // form1.chatname.value = '';
+        document.getElementById('message').value = "";
+        
+        console.log(message);
+        return false;
+      }
+    }
+  console.log(baseurl);
     $(document).ready(function () {
       var isOpened = false;
       $("#chatbutton").on("click", function () {
         if(isOpened == false){
           $("#chatbox").show();
+          var loading = '<center><h5>Loading</h5></center>';
+          $("#chatbar").html(loading);
+          interval = setInterval(function() { view() }, 1000);
           isOpened = true;
         }else{
           $("#chatbox").hide();
+          clearInterval(interval);
           isOpened = false;
         }
       })
+
     })
     
   </script>

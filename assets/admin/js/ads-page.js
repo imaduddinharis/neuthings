@@ -1,3 +1,5 @@
+var baseurl = $('#baseurl').val();
+console.log(baseurl);
 var captcha = false;
 var i = 1;
 
@@ -144,7 +146,7 @@ function print(divName) {
 
 $("#printbtn").click(function(){
   var divToPrint=document.getElementById('printarea');
-  var linkassets = 'https://neuthings.id/';
+  var linkassets = baseurl;
   var newWin=window.open('','Print-Window');
 
   newWin.document.open();
@@ -168,7 +170,7 @@ function getViewersEstimation(budget,price) {
           document.getElementById('estimation').innerHTML = xhr.responseText;
       }
   }
-  xhr.open('GET', 'https://neuthings.id/viewers-get/'+budget+'/'+price, true);
+  xhr.open('GET', baseurl+'viewers-get/'+budget+'/'+price, true);
   xhr.send();
 }
 
@@ -180,3 +182,6 @@ $(document).ready(function(){
   getViewersEstimation(budget,price);
 })
 
+// $('#edit-ads').click(function(){
+//   window.location.href=baseurl+'update/';
+// });

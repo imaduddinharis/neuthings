@@ -34,9 +34,9 @@
                                                         <img src="<?= $content[0]['photo'] ?>" class="img-fluid" alt="" style="width:200px !important;height:130px !important;">
                                                     </div>
                                                     <div class="col-md-10">
-                                                        <h4><a href="<?=base_url()?>ads/detail/<?=$val->id_ads_pref?>"><?= $content[0]['title'] ?></a></h4>
+                                                        <h4><a href="<?=base_url()?>ads/detail/<?=$val->id_ads_pref?>"><?= $content[0]['title'] ?></a> <a href="<?=base_url()?>ads/update/<?=$val->id_ads_pref?>"><i class="fa fa-pen-square"></i></a></h4>
                                                         <hr>
-                                                        <p><i class="fa fa-eye"></i> <?=$getAdsApi->data->_view?> &emsp;<i class="fa fa-mouse-pointer"></i></i> <?=$getAdsApi->data->_click?>&emsp; Status: <?=$status?></p>
+                                                        <p><i class="fa fa-eye"></i> <?=$getAdsApi->data->_impression?> &emsp;<i class="fa fa-mouse-pointer"></i></i> <?=$getAdsApi->data->_click?>&emsp; Status: <?=$status?></p>
                                                     </div>
                                                 </div>
                                             </div>

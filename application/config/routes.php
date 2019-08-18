@@ -70,7 +70,7 @@ $route['ads/detail/(:any)'] = 'adsmanagementcontroller/detail/$1';
 $route['ads/monitoring/(:any)'] = 'adsmanagementcontroller/monitoring/$1';
 $route['ads/invoice/(:any)'] = 'adsmanagementcontroller/invoice/$1';
 $route['ads/invoice/detail/(:any)/(:any)'] = 'adsmanagementcontroller/invoice_detail/$1/$2';
-$route['ads/update'] = 'adsmanagementcontroller/update';
+$route['ads/update/(:any)'] = 'adsmanagementcontroller/update/$1';
 $route['ads/post'] = 'adsmanagementcontroller/post';
 $route['ads/put'] = 'adsmanagementcontroller/put';
 
@@ -82,3 +82,10 @@ $route['pay/finish'] = 'adsmanagementcontroller/payfinish';
 $route['about/kebijakan-privasi'] = 'dashboard';
 $route['about/ketentuan-layanan'] = 'dashboard';
 
+$route['admin'] = 'admin/livechat';
+
+$route['chat-get'] = 'admin/livechat/get';
+$route['chat-send'] = 'admin/livechat/send';
+$route['chat-cust-get'] = 'adsmanagementcontroller/get';
+$route['chat-cust-send'] = 'adsmanagementcontroller/send';
+$route['chat'] = 'admin/livechat/getchat';

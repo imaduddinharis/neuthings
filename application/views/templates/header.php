@@ -33,7 +33,7 @@
 </head>
 
 <body id="page-top">
-
+  <input type="hidden" id="baseurl" value="<?=base_url()?>">
   <!-- Page Wrapper -->
   <div id="wrapper">
 
