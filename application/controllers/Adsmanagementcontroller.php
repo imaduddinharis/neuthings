@@ -457,7 +457,7 @@ class Adsmanagementcontroller extends CI_Controller {
         //     }
         // }
         $viewers = $price/10;
-        $data = '<p class="text-default"> with that package and price, your ads will appear<span class="text-primary"> '.$viewers.' </span> times. </p>';
+        $data = '<p class="text-default"> with that package and price, your ads will appear<span class="text-primary"> '.intVal($viewers).' </span> times. </p>';
         echo $data;
     }
 

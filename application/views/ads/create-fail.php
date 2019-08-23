@@ -103,7 +103,7 @@
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="price">Viewers Estimation</label>
                                             <div class="" id="estimation">
-                                                <p class="text-default"> with that package and price, you can reach <span class="text-primary"> 1000 </span> viewer(s). </p>
+                                            <p class="text-default"> with that package and price, your ads will appear <span class="text-primary"> 1000 </span> times. </p>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12 form-group">
