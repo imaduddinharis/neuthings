@@ -106,7 +106,11 @@
   <script src="<?=base_url()?>assets/admin/js/ads-page.js"></script>
 
   <script src='https://www.google.com/recaptcha/api.js'></script>
-  
+  <script src="<?=base_url()?>asset/Chart.bundle.js"></script>
+    <script src="<?=base_url()?>asset/Chart.bundle.min.js"></script>
+    <script src="<?=base_url()?>asset/Chart.js"></script>
+    <script src="<?=base_url()?>asset/Chart.min.js"></script>
+    
   <!-- MDBootstrap Steppers Pro  -->
   <script type="text/javascript" src="<?=base_url()?>assets/admin/js/step.js"></script>
   <script>
@@ -205,6 +209,93 @@
     
   </script>
   <!-- endlivechat -->
+
+  <script>
+
+    var ctx = document.getElementById('impressionperday').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['0',<?=$labelimp?>],
+            datasets: [{
+                label: 'Jumlah Impression',
+                data: [0,<?=$datasetimp?>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx2 = document.getElementById('viewperday').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['0',<?=$labelview?>],
+            datasets: [{
+                label: 'Jumlah View',
+                data: [0,<?=$datasetview?>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx3 = document.getElementById('clickperday').getContext('2d');
+    var myChart3 = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: ['0',<?=$labelclick?>],
+            datasets: [{
+                label: 'Jumlah Click',
+                data: [0,<?=$datasetclick?>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
 </body>
 
 </html>

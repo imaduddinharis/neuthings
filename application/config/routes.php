@@ -55,11 +55,14 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['/'] = 'landingpagecontroller';
 $route['auth'] = 'authcontroller';
+$route['auth/login'] = 'authcontroller/login';
 $route['auth/login-google'] = 'authcontroller/logingoogle';
 $route['auth/login-facebook'] = 'authcontroller/loginfacebook';
 $route['auth/logout'] = 'authcontroller/logout';
 $route['auth/logoutgoogle'] = 'authcontroller/logoutgoogle';
 $route['auth-facebook'] = 'authlib/facebook_test/login';
+$route['auth-register'] = 'authcontroller/registering';
+$route['auth/register'] ='authcontroller/register';
 
 $route['dashboard'] = 'dashboardcontroller';
 

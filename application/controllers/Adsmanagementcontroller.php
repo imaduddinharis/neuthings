@@ -5,6 +5,7 @@ class Adsmanagementcontroller extends CI_Controller {
 
     var $path = '';
     var $API = 'http://pushadsdev.amandjaja.com/frog/oapi/';
+    var $APIStatistik = 'https://statdev.surewin.co.id/fig/service/content/';
     var $param = '?tcx_datetime=20181230235959';
     var $TYPE = 'FTC';
     var $APPID = 'neuthings.id';
@@ -67,6 +68,9 @@ class Adsmanagementcontroller extends CI_Controller {
     }
     public function monitoring($id)
 	{
+        $labelimp='';$datasetimp='';
+        $labelview='';$datasetview='';
+        $labelclick='';$datasetclick='';
         $data['userData'] = $this->session->userdata('userData');
         $data['Adspref'] = Adspref::where('email',$data['userData']['email'])
                                     ->where('id_ads_pref',$id)
@@ -74,6 +78,33 @@ class Adsmanagementcontroller extends CI_Controller {
         $data['Adscont'] = Adscont::where('id_ads_pref',$id)
                                     ->get();
         $data['ads']     = json_decode($this->getAdsApi($id));
+        $impstat     = json_decode($this->getAdsPerDay($id,$data['ads']->data->_start,'impression'));
+        foreach($impstat->data as $val){
+            $date = date_create($val->_date);
+            $dates = date_format($date,'F j, Y');
+            $labelimp .= "'".$dates."'".",";
+            $datasetimp .= $val->_impression.',';
+        }
+        $data['labelimp']=$labelimp;
+        $data['datasetimp']=$datasetimp;
+        $viewstat     = json_decode($this->getAdsPerDay($id,$data['ads']->data->_start,'view'));
+        foreach($viewstat->data as $val){
+            $date = date_create($val->_date);
+            $dates = date_format($date,'F j, Y');
+            $labelview .= "'".$dates."'".",";
+            $datasetview .= $val->_view.',';
+        }
+        $data['labelview']=$labelview;
+        $data['datasetview']=$datasetview;
+        $clickstat     = json_decode($this->getAdsPerDay($id,$data['ads']->data->_start,'click'));
+        foreach($clickstat->data as $val){
+            $date = date_create($val->_date);
+            $dates = date_format($date,'F j, Y');
+            $labelclick .= "'".$dates."'".",";
+            $datasetclick .= $val->_click.',';
+        }
+        $data['labelclick']=$labelclick;
+        $data['datasetclick']=$datasetclick;
         $data['title'] = 'Neuthings | Dashboard';
         $data['header']=$this->load->view('templates/header',$data, true);
         $data['content']=$this->load->view('ads/monitoring',$data, true);
@@ -580,6 +611,44 @@ class Adsmanagementcontroller extends CI_Controller {
         } 
     }
 
+    public function getAdsPerDay($id,$start,$action)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->APIStatistik.'daily'.$this->param,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => array('start_date' => $start,
+                                    'end_date' => date('Y-m-d'),
+                                    'action' => $action,
+                                    'id' => $id),
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+
+    }
+
     public function getWitelsApi()
     {
         $curl = curl_init();
@@ -628,10 +697,9 @@ class Adsmanagementcontroller extends CI_Controller {
             if($chats->sender != $cust)
             {
                 Chats::where('chat_id',$chats->chat_id)->update(['status'=>0]);
-                $user = Users::where('email',$cust)->get();
                 $position = '<div class="row mb-4">
                 <div class="col-md-3">
-                  <img src="https://dummyimage.com/70x70/000/ffffff" alt="" class=" rounded-circle">
+                  <img src="'.base_url().'assets/landing-page/img/495d50774a822d720190812031506.png" style="width:inherit"alt="" class=" rounded-circle">
                 </div>
                 <div class="col-md-9">
                   <div class="card">
@@ -643,7 +711,13 @@ class Adsmanagementcontroller extends CI_Controller {
               </div>
               ';
             }else{
-                $user = Users::where('email',$cust)->get();
+                $user = Users::where('email',$cust)->where('oauth_provider',$this->session->userdata('userData')['oauth_provider'])->get();
+                $pic = '';
+                if($user[0]['picture']!=''){
+                    $pic = $user[0]['picture'];
+                }else{
+                    $pic = 'http://pluspng.com/img-png/user-png-icon-png-ico-512.png';
+                }
                 $position = '<div class="row mb-4">
                 <div class="col-md-9">
                   <div class="card">
@@ -653,7 +727,7 @@ class Adsmanagementcontroller extends CI_Controller {
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <img src="'.$user[0]['picture'].'" alt="" class=" rounded-circle">
+                  <img src="'.$pic.'" alt="" style="width:inherit" class=" rounded-circle">
                 </div>
               </div>';
             }

@@ -39,37 +39,29 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Register Account</h1>
                   </div>
-                  <form class="user" method="post" action="<?=base_url()?>auth/login">
+                  <form class="user" method="post" action="<?=base_url()?>auth-register">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." required>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password" required>
                     </div>
-                    <!-- <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                      </div>
-                    </div> -->
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" name="first_name" id="exampleInputFirstname" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" name="last_name" id="exampleInputLastname" placeholder="Last Name" required>
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                      Login
+                      Register
                     </button>
-                    <small class="form-text text-muted text-center">
-                      don't have an account? <a href="<?=base_url()?>auth/register">register</a>
-                    </small>
-                    <small class="form-text text-muted text-center">
-                      OR
-                    </small>
                     <hr>
-                    <a href="<?=$authGoogle?>" class="btn btn-google btn-user btn-block">
-                      <i class="fab fa-google fa-fw"></i> Login with Google
-                    </a>
-                    <a href="<?=$authFb?>" class="btn btn-facebook btn-user btn-block fb-login-button" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true">
-                      <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                    </a>
+                    <small class="form-text text-muted text-center">
+                      already have an account? <a href="<?=base_url()?>auth">login</a>
+                    </small>
                   </form>
                   <hr>
                   <!-- <div class="text-center">

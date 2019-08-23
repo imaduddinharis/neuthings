@@ -52,9 +52,15 @@ class Livechat extends CI_Controller {
             {
                 Chats::where('chat_id',$chats->chat_id)->update(['status'=>0]);
                 $user = Users::where('email',$cust)->get();
+                $pic = '';
+                if($user[0]['picture']!=''){
+                    $pic = $user[0]['picture'];
+                }else{
+                    $pic = 'http://pluspng.com/img-png/user-png-icon-png-ico-512.png';
+                }
                 $position = '<div class="row mb-4">
                 <div class="col-md-3">
-                  <img src="'.$user[0]['picture'].'" alt="" class=" rounded-circle">
+                  <img src="'.$pic.'" alt="" style="width:inherit" class=" rounded-circle">
                 </div>
                 <div class="col-md-9">
                   <div class="card">
@@ -75,7 +81,7 @@ class Livechat extends CI_Controller {
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <img src="https://dummyimage.com/70x70/000/ffffff" alt="" class=" rounded-circle">
+                  <img src="'.base_url().'assets/landing-page/img/495d50774a822d720190812031506.png" alt="" style="width:inherit" class=" rounded-circle">
                 </div>
               </div>';
             }

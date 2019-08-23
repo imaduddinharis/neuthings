@@ -78,16 +78,41 @@
             <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Impression Per Day</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                    <canvas id="impressionperday"></canvas>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-7">
+            <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">View Per Day</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                    <canvas id="viewperday"></canvas>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-7">
+            <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Click Per Day</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <div class="chart-area">
-                <canvas id="myAreaChart"></canvas>
-                </div>
+                    <canvas id="clickperday"></canvas>
             </div>
             </div>
         </div>
+
 
         <div class="col-xl-4 col-lg-5" style="display:none">
             <div class="card shadow mb-4">

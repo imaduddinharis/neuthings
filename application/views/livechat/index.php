@@ -38,6 +38,7 @@
     <h1>Neuthings</h1>
     <small>new way of advertising</small>
   </center>
+  <a href="<?=base_url()?>auth/logout" class="btn btn-danger" title="logout" style="position: fixed; bottom: 23px; right: 128px;"><i class="fa fa-power-off"></i></a>
   <button id="chatbutton" class="btn btn-secondary" style="position: fixed; bottom: 23px; right: 28px;"><i class="fa fa-comment-o"></i> Livechat</button>
   <div class="card" style="position: fixed; bottom: 70px; right: 28px; width: 350px; max-height: 500px; display: none;" id="chatbox">
     <div class="card-header bg-primary bg- text-white">
@@ -78,7 +79,7 @@
     <div class="card-footer" id="chatfooter" style="display: none;">
       <div class="row">
         <div class="col-md-9">
-          <textarea class="form-control" rows="1" style="font-size: small;" id="message"></textarea>
+          <textarea class="form-control" onKeyPress="checkSubmit(event)" rows="1" style="font-size: small;" id="message"></textarea>
         </div>
         <div class="col-md-3 d-flex align-items-center">
           <button class="btn btn-primary btn-block" onclick="insert()"><i class="fa fa-paper-plane"></i></button>
@@ -120,6 +121,7 @@
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
         <script>
+          
             $(document).ready(function(){
                 $('.tabledata').DataTable({
                   "dom":  '<"search"fl><"top">rt<"bottom"ip>',
@@ -153,6 +155,11 @@
 <script>
   var baseurl = $('#baseurl').val();
   console.log(baseurl);
+    function checkSubmit(e) {
+      if(e && e.keyCode == 13) {
+          insert();
+      }
+    }
     function view(id,email) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {

@@ -12,7 +12,7 @@ class Authcontroller extends CI_Controller {
         $this->load->library('google');
         
         //Load user model
-        $this->load->model('users');
+        $this->load->model('Users');
         //Load user model
         $this->load->model('user');
         
@@ -27,6 +27,14 @@ class Authcontroller extends CI_Controller {
         $data['authFb'] = $this->facebook->login_url();
         $data['authGoogle'] = $this->google->get_login_url();
 		$this->load->view('login/index',$data);
+    }
+    public function register()
+	{
+        if(isset($_SESSION['loggedIn']))
+        {
+            redirect(base_url().'dashboard');
+        }
+        $this->load->view('login/register');
     }
     
     public function logingoogle()
@@ -118,6 +126,62 @@ class Authcontroller extends CI_Controller {
         $data['content']=$this->load->view('dashboard/index',$data, true);
         $data['footer']=$this->load->view('templates/footer',$data, true);
 		$this->load->view('index',$data);
+    }   
+
+    public function login()
+    {
+        $check = Users::where('oauth_provider', 'neuthings')
+                        ->where('email', $this->input->post('email'))
+                        ->where('password', md5($this->input->post('password')))
+                        ->get();
+        if(count($check)>0){
+            if($check[0]['privillege']=='admin')
+            {
+                redirect(base_url().'admin');
+            }else
+            {
+                $userData['oauth_provider'] = $check[0]['oauth_provider'];
+                $userData['oauth_uid']    = $check[0]['oauth_uid'];
+                $userData['first_name']    = $check[0]['first_name'];
+                $userData['last_name']    = $check[0]['last_name'];
+                $userData['email']        = $check[0]['email'];
+                $userData['gender']        = $check[0]['gender'];
+                $userData['picture']    = 'http://pluspng.com/img-png/user-png-icon-png-ico-512.png';
+                $userData['link']        = $check[0]['link'];
+                $userData['authLogout']        =  base_url().'auth/logout';
+            
+                $this->session->set_userdata('loggedIn', true);
+                $this->session->set_userdata('userData', $userData);
+                redirect(base_url().'dashboard');
+            }
+        }
+    }
+    
+    public function registering()
+    {
+        // var_dump(date('Ymdhis'));
+        // return false;
+        $check = Users::where('oauth_provider', 'neuthings')
+                        ->where('email', $this->input->post('email'))
+                        ->get();
+        if(count($check)>0){
+            echo '<script>alert("email telah terdaftar, silahkan hubungi administrator untuk permintaan reset password")</script>';
+        }else{
+            $data = array(
+                'oauth_provider'=> 'neuthings',
+                'oauth_uid'=> date('Ymdhis'),
+                'email' => $this->input->post('email'),
+                'password'=> md5($this->input->post('password')),
+                'first_name'=> $this->input->post('first_name'),
+                'last_name'=> $this->input->post('last_name'),
+                'privillege'=> 'user'
+            );
+            $regist = Users::create($data);
+            if($regist){
+                redirect(base_url().'auth');
+            }            
+        }
+
     }
 
     public function logout()
