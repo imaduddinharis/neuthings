@@ -39,6 +39,18 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
+                    <?php 
+                    if(isset($_GET['err'])&&$_GET['err']=1){
+                      ?>
+                      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fa fa-info-circle"></i> Failed to create the ads, please check your data then try again
+                                <br> <small>If still failed to , so please call customer service</small>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <?php
+                    }?>
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
                   <form class="user" method="post" action="<?=base_url()?>auth/login">

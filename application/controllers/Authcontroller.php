@@ -154,6 +154,8 @@ class Authcontroller extends CI_Controller {
                 $this->session->set_userdata('userData', $userData);
                 redirect(base_url().'dashboard');
             }
+        }else{
+            redirect(base_url().'auth?err=1');
         }
     }
     
