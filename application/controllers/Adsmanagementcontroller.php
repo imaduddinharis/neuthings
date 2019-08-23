@@ -441,22 +441,23 @@ class Adsmanagementcontroller extends CI_Controller {
     
     public function viewers_get($budget,$price)
     {
-        $dataEstimation = Viewers::where('budget',$budget)->get();
-        foreach($dataEstimation as $key=>$value)
-        {
-            if($price == 0 || $price == ''){
-                $viewers = '0';
-            }
-            else if($price >= $value->price_start && $price < $value->price_max
-            )
-            {
-                $viewers = $value->estimation;
-            }else if($price >= $value->price_start && $price >= $value->price_max)
-            {
-                $viewers = 'more than '.$value->estimation;
-            }
-        }
-        $data = '<p class="text-default"> with that package and price, you can reach <span class="text-primary"> '.$viewers.' </span> viewer(s). </p>';
+        // $dataEstimation = Viewers::where('budget',$budget)->get();
+        // foreach($dataEstimation as $key=>$value)
+        // {
+        //     if($price == 0 || $price == ''){
+        //         $viewers = '0';
+        //     }
+        //     else if($price >= $value->price_start && $price < $value->price_max
+        //     )
+        //     {
+        //         $viewers = $value->estimation;
+        //     }else if($price >= $value->price_start && $price >= $value->price_max)
+        //     {
+        //         $viewers = 'more than '.$value->estimation;
+        //     }
+        // }
+        $viewers = $price/10;
+        $data = '<p class="text-default"> with that package and price, your ads will appear<span class="text-primary"> '.$viewers.' </span> times. </p>';
         echo $data;
     }
 
