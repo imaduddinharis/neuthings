@@ -42,7 +42,7 @@
                     <?php if(isset($_GET['err'])&&$_GET['err']=1){ ?>
                       
                       <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fa fa-info-circle"></i> Failed to Login, Please try again and chec your account
+                        <i class="fa fa-info-circle"></i> Failed to Login, Please try again and check your account
                         <br> <small>If still failed to , so please call customer service</small>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
