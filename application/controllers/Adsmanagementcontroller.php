@@ -194,11 +194,11 @@ class Adsmanagementcontroller extends CI_Controller {
         
         $adsPref = array(
             'id_ads_pref'   => $postApi->data->id,
-            'languages'     => $this->input->post('languages'),
+            'languages'     => 'Indonesian',
             'email'         => $this->session->userdata('userData')['email'],
             'city'          => $this->input->post('city'),
             'state'         => $this->input->post('state'),
-            'country'       => $this->input->post('country'),
+            'country'       => 'Indonesia',
             'budget'        => $this->input->post('budget'),
             'price'         => $this->input->post('price'),
             'scheduling'    => $this->input->post('scheduling'),
@@ -373,6 +373,7 @@ class Adsmanagementcontroller extends CI_Controller {
     }
 
     public function putAdsImageAPI($id){
+        $idx = json_decode($this->getAdsImageAPI($id));    
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -387,7 +388,7 @@ class Adsmanagementcontroller extends CI_Controller {
         CURLOPT_POSTFIELDS => array('advertisement_id' => $id,
                                     'image_size_id' => 'REC_640_720',
                                     'image'=> new CURLFILE($_FILES['photo']['tmp_name']),
-                                    'id' => $id,
+                                    'id' => $idx->data->id,
                                     '_method' => 'put'),
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
@@ -526,6 +527,39 @@ class Adsmanagementcontroller extends CI_Controller {
                                     'id' => $id,
                                     '_method' => 'put',
                                     ),
+        CURLOPT_HTTPHEADER => array(
+            "X-TCX-TYPE: ".$this->TYPE,
+            "X-TCX-APP-ID: ".$this->APPID,
+            "X-TCX-APP-PASS: ".$this->APPPASS,
+            "X-TCX-TOKEN: ".$this->APPTOKEN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        return $err;
+        } else {
+        return $response;
+        } 
+    }
+
+    public function getAdsImageApi($id)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->API.'advertisement/image'.$this->param.'&advertisement_id='.$id,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
             "X-TCX-APP-ID: ".$this->APPID,
