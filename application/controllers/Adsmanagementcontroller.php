@@ -388,7 +388,7 @@ class Adsmanagementcontroller extends CI_Controller {
         CURLOPT_POSTFIELDS => array('advertisement_id' => $id,
                                     'image_size_id' => 'REC_640_720',
                                     'image'=> new CURLFILE($_FILES['photo']['tmp_name']),
-                                    'id' => $idx->data->id,
+                                    'id' => $idx->data[0]->id,
                                     '_method' => 'put'),
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
