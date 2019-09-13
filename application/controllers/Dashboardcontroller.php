@@ -2,13 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboardcontroller extends CI_Controller {
-    var $API = 'http://pushadsdev.amandjaja.com/frog/oapi/';
+    var $API = 'http://api.pushads.amandjaja.com/frog/oapi/';
+    var $APIStatistik = 'https://statdev.surewin.co.id/fig/service/content/';
     var $param = '?tcx_datetime=20181230235959';
     var $TYPE = 'FTC';
     var $APPID = 'neuthings.id';
-    var $APPPASS = 'NTRiZGYxNjVmYzExY2RmMjFhMDIzMjJiZTc3NzE1NmZmNDhiMTVjNzphYmNkZTEyMzQ1YWJjZGU=';
-    var $APPTOKEN = 'MWI4OTFlNmJmN2ZkNmZjMTEzMzdhMjNkZWIyYjliMmNmNmM2NmE0Ng==';
-    var $imglink = 'http://pushadsdev.amandjaja.com/data/advertisement/image/';
+    var $APPPASS = 'N2IwOGNhNjMxMDUwYTdkODdmY2VjOGUwMzkwMjk3NDk4ZTc2OWZkMDphYmNkZTEyMzQ1YWJjZGU=';
+    var $APPTOKEN = 'ODM2YmJjNWM1OGVmMzgwNjQ0ZDJmY2RmM2JiYmM2ZDJjZTY3ZTcwZg==';
+    var $imglink = 'http://api.pushads.amandjaja.com/data/advertisement/image/';
 
     public function __construct()
     {
