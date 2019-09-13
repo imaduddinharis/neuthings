@@ -5,12 +5,14 @@ class Adsmanagementcontroller extends CI_Controller {
 
     var $path = '';
     var $API = 'http://api.pushads.amandjaja.com/frog/oapi/';
-    var $APIStatistik = 'https://statdev.surewin.co.id/fig/service/content/';
+    var $APIStatistik = 'http://sa.pushads.amandjaja.com/fig/service/content/daily';
     var $param = '?tcx_datetime=20181230235959';
     var $TYPE = 'FTC';
     var $APPID = 'neuthings.id';
     var $APPPASS = 'N2IwOGNhNjMxMDUwYTdkODdmY2VjOGUwMzkwMjk3NDk4ZTc2OWZkMDphYmNkZTEyMzQ1YWJjZGU=';
     var $APPTOKEN = 'ODM2YmJjNWM1OGVmMzgwNjQ0ZDJmY2RmM2JiYmM2ZDJjZTY3ZTcwZg==';
+    var $APPPASSSTAT = 'MjYzYzE1NWJmMzdhMjViYTdmMDIxZDhhMzkyNzUzOWYwMzY5YWY0ZDphYmNkZTEyMzQ1YWJjZGU=';
+    var $APPTOKENSTAT = 'N2Y3M2E1M2MwZmNkYTMxMTgzMjVlMmIwMTZmYzY1NGJhMjJiOWY0Zg==';
     var $imglink = 'http://api.pushads.amandjaja.com/data/advertisement/image/';
 
 
@@ -651,7 +653,7 @@ class Adsmanagementcontroller extends CI_Controller {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => $this->APIStatistik.'daily'.$this->param,
+        CURLOPT_URL => $this->APIStatistik,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -666,8 +668,8 @@ class Adsmanagementcontroller extends CI_Controller {
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
             "X-TCX-APP-ID: ".$this->APPID,
-            "X-TCX-APP-PASS: ".$this->APPPASS,
-            "X-TCX-TOKEN: ".$this->APPTOKEN
+            "X-TCX-APP-PASS: ".$this->APPPASSSTAT,
+            "X-TCX-TOKEN: ".$this->APPTOKENSTAT
         ),
         ));
 
