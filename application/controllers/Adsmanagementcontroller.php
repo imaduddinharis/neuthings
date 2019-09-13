@@ -192,7 +192,7 @@ class Adsmanagementcontroller extends CI_Controller {
 
     public function post()
     {
-        $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('budget'),8000,intVal($this->input->post('budget')/8000)));
+        $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('price'),10,intVal($this->input->post('price')/10)));
         
         $adsPref = array(
             'id_ads_pref'   => $postApi->data->id,
