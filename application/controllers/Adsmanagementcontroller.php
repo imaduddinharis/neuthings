@@ -192,88 +192,118 @@ class Adsmanagementcontroller extends CI_Controller {
 
     public function post()
     {
-        $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('price'),10,intVal($this->input->post('price')/10)));
-        
-        $adsPref = array(
-            'id_ads_pref'   => $postApi->data->id,
-            'languages'     => 'Indonesian',
-            'email'         => $this->session->userdata('userData')['email'],
-            'city'          => $this->input->post('city'),
-            'state'         => $this->input->post('state'),
-            'country'       => 'Indonesia',
-            'budget'        => $this->input->post('budget'),
-            'price'         => $this->input->post('price'),
-            'scheduling'    => $this->input->post('scheduling'),
-            'platform'      => $this->input->post('platform')
-        );
-        $adsCont = array(
-            'title'         => $this->input->post('title'),
-            'photo'         => $_FILES['photo']['name'],
-            'adsclick'      => $this->input->post('adsclick'),
-        );
-        
-        $datas = array_merge($adsPref,$adsCont);
-        // var_dump($this->uploading());
-        // var_dump($datas);
-        // var_dump($this->validation($datas));
-        // return false;
-        if($this->validation($datas))
+        if(@getimagesize($_FILES['photo']['tmp_name'])[0] == '640' && @getimagesize($_FILES['photo']['tmp_name'])[1] == '720')
         {
             
-            // $uploaded = $this->uploading();
-            if(@getimagesize($_FILES['photo']['tmp_name'])[0] == '550' && @getimagesize($_FILES['photo']['tmp_name'])[1] == '550')
+            $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('price'),10,intVal($this->input->post('price')/10)));
+            
+            $adsPref = array(
+                'id_ads_pref'   => $postApi->data->id,
+                'languages'     => 'Indonesian',
+                'email'         => $this->session->userdata('userData')['email'],
+                'city'          => $this->input->post('city'),
+                'state'         => $this->input->post('state'),
+                'country'       => 'Indonesia',
+                'budget'        => $this->input->post('budget'),
+                'price'         => $this->input->post('price'),
+                'scheduling'    => $this->input->post('scheduling'),
+                'platform'      => $this->input->post('platform')
+            );
+            $adsCont = array(
+                'title'         => $this->input->post('title'),
+                'photo'         => $_FILES['photo']['name'],
+                'adsclick'      => $this->input->post('adsclick'),
+            );
+            
+            $datas = array_merge($adsPref,$adsCont);
+            // var_dump($this->uploading());
+            // var_dump($datas);
+            // var_dump($this->validation($datas));
+            // return false;
+            if($this->validation($datas))
             {
+                
+                // $uploaded = $this->uploading();
                 $upload = json_decode($this->postAdsImageAPI($postApi->data->id));
                 $status_code = $upload->status_code;
-            }else{
-                $status_code = 'XXXXX';
+                // var_dump(@getimagesize($_FILES['photo']['tmp_name'])[0]);
+                // return false;
+                $createPref = Adspref::create($adsPref);
+                $id = array('photo'         => $this->imglink.$upload->data->link,
+                            'id_ads_pref'   => $postApi->data->id);
+                $adsCont = array_merge($adsCont,$id);
+                $createCont = Adscont::create($adsCont);
+                $adsPayment = array(
+                    'id_ads_pref'   => $postApi->data->id,
+                    'price'         => $this->input->post('price'),
+                    'status'        => 0,
+                );
+                Payments::create($adsPayment);
+                if($this->input->post('adsclick') == 1){
+                    $getTerms = $this->getTerms($this->input->post('terms'),$postApi->data->id);
+                    // var_dump($getTerms);
+                    // return false;
+                    $postAdsClick = Terms::insert($getTerms);
+
+                    
+                }else if($this->input->post('adsclick') == 2){
+
+                }else if($this->input->post('adsclick') == 3){
+
+                }
+                // $upload = $this->uploading();
+                // $create = false;
+                // var_dump($uploaded);
+                //     return false;
+                if($createPref && $createCont && $status_code == 'SSSSSS' && $postAdsClick)
+                {
+                    redirect(base_url().'ads/list');
+                }else
+                {
+                    $data['userData'] = $this->session->userdata('userData');
+                    $data['formValue'] = $datas;
+                    $data['kotas']     = json_decode($this->getKotasApi());
+                    // var_dump($data['kotas']);
+                    // return false;
+                    $data['witels']     = json_decode($this->getWitelsApi());
+                    $data['title'] = 'Neuthings | Dashboard';
+                    $data['header']=$this->load->view('templates/header',$data, true);
+                    $data['content']=$this->load->view('ads/create-fail',$data, true);
+                    $data['footer']=$this->load->view('templates/footer',$data, true);
+                    $this->load->view('index',$data);
+                }
             }
-            // var_dump(@getimagesize($_FILES['photo']['tmp_name'])[0]);
-            // return false;
-            $createPref = Adspref::create($adsPref);
-            $id = array('photo'         => $this->imglink.$upload->data->link,
-                        'id_ads_pref'   => $postApi->data->id);
-            $adsCont = array_merge($adsCont,$id);
-            $createCont = Adscont::create($adsCont);
-            $adsPayment = array(
-                'id_ads_pref'   => $postApi->data->id,
+        }else{
+            $adsPref = array(
+                'id_ads_pref'   => 0,
+                'languages'     => 'Indonesian',
+                'email'         => $this->session->userdata('userData')['email'],
+                'city'          => $this->input->post('city'),
+                'state'         => $this->input->post('state'),
+                'country'       => 'Indonesia',
+                'budget'        => $this->input->post('budget'),
                 'price'         => $this->input->post('price'),
-                'status'        => 0,
+                'scheduling'    => $this->input->post('scheduling'),
+                'platform'      => $this->input->post('platform')
             );
-            Payments::create($adsPayment);
-            if($this->input->post('adsclick') == 1){
-                $getTerms = $this->getTerms($this->input->post('terms'),$postApi->data->id);
-                // var_dump($getTerms);
-                // return false;
-                $postAdsClick = Terms::insert($getTerms);
-
-                
-            }else if($this->input->post('adsclick') == 2){
-
-            }else if($this->input->post('adsclick') == 3){
-
-            }
-            // $upload = $this->uploading();
-            // $create = false;
-            // var_dump($uploaded);
-            //     return false;
-            if($createPref && $createCont && $status_code == 'SSSSSS' && $postAdsClick)
-            {
-                redirect(base_url().'ads/list');
-            }else
-            {
-                $data['userData'] = $this->session->userdata('userData');
-                $data['formValue'] = $datas;
-                $data['kotas']     = json_decode($this->getKotasApi());
-                // var_dump($data['kotas']);
-                // return false;
-                $data['witels']     = json_decode($this->getWitelsApi());
-                $data['title'] = 'Neuthings | Dashboard';
-                $data['header']=$this->load->view('templates/header',$data, true);
-                $data['content']=$this->load->view('ads/create-fail',$data, true);
-                $data['footer']=$this->load->view('templates/footer',$data, true);
-                $this->load->view('index',$data);
-            }
+            $adsCont = array(
+                'title'         => $this->input->post('title'),
+                'photo'         => $_FILES['photo']['name'],
+                'adsclick'      => $this->input->post('adsclick'),
+            );
+            
+            $datas = array_merge($adsPref,$adsCont);
+            $data['userData'] = $this->session->userdata('userData');
+            $data['formValue'] = $datas;
+            $data['kotas']     = json_decode($this->getKotasApi());
+            // var_dump($data['kotas']);
+            // return false;
+            $data['witels']     = json_decode($this->getWitelsApi());
+            $data['title'] = 'Neuthings | Dashboard';
+            $data['header']=$this->load->view('templates/header',$data, true);
+            $data['content']=$this->load->view('ads/create-fail',$data, true);
+            $data['footer']=$this->load->view('templates/footer',$data, true);
+            $this->load->view('index',$data);
         }
     }
 
