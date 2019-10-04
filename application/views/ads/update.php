@@ -86,7 +86,7 @@
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="photo">Photo</label>
                                             <input type="file" class="form-control" name="photo" id="photo">
-                                            <small class="form-text text-muted danger text-uppercase">photo size must be 640x720</small>
+                                            <small class="form-text text-muted text-uppercase" style="color:crimson !important">photo size must be 640x720</small>
                                         </div>
                                         <div id="forminfo" class="form-group col-md-12 col-sm-12 hidden">
                                             <div class="col-md-12 col-sm-12">

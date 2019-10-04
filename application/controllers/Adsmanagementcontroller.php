@@ -221,15 +221,15 @@ class Adsmanagementcontroller extends CI_Controller {
         {
             
             // $uploaded = $this->uploading();
-            if($_FILES['photo']['tmp_name'][0] == '550' && $_FILES['photo']['tmp_name'][1] == '550')
+            if(@getimagesize($_FILES['photo']['tmp_name'])[0] == '550' && @getimagesize($_FILES['photo']['tmp_name'])[1] == '550')
             {
                 $upload = json_decode($this->postAdsImageAPI($postApi->data->id));
                 $status_code = $upload->status_code;
             }else{
                 $status_code = 'XXXXX';
             }
-            var_dump(@getimagesize($_FILES['photo']['tmp_name'])[0]);
-            return false;
+            // var_dump(@getimagesize($_FILES['photo']['tmp_name'])[0]);
+            // return false;
             $createPref = Adspref::create($adsPref);
             $id = array('photo'         => $this->imglink.$upload->data->link,
                         'id_ads_pref'   => $postApi->data->id);

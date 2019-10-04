@@ -139,7 +139,7 @@
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="photo">Photo</label>
                                             <input type="file" class="form-control" onInput="validationform2()" name="photo" id="photo" required>
-                                            <small class="form-text text-muted danger text-uppercase">photo size must be 640x720</small>
+                                            <small class="form-text text-muted text-uppercase" style="color:crimson !important">photo size must be 640x720</small>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12">
                                             <label for="adsclick">Ads Click</label>
