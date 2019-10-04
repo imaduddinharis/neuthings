@@ -190,7 +190,7 @@ class Authcontroller extends CI_Controller {
     {
         // $this->facebook->logout();
         // Remove local Facebook session
-        $this->facebook->destroy_session();
+        // $this->facebook->destroy_session();
         // $this->google->revokeToken();
         // Remove user data from session
         $this->session->unset_userdata('loggedIn');
