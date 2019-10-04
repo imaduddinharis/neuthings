@@ -16,7 +16,7 @@
                         <div class="card border-bottom-primary shadow h-100 py-2">
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <i class="fa fa-info-circle"></i> Failed to create the ads, please check your data then try again
-                                <br> <small>If still failed to , so please call customer service</small>
+                                <br> <small>If still failed to , so please call customer service (turn off the AdBlock first)</small>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

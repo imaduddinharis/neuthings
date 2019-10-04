@@ -14,6 +14,13 @@
                         </div>
                         <!-- <br> -->
                         <div class="card border-bottom-primary shadow h-100 py-2">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <i class="fa fa-info-circle"></i> If you wannt to create the ads
+                                <br> <small>Turn Off the AdBlock First</small>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <form method="post" action="<?=base_url()?>ads/post" enctype="multipart/form-data">
 
