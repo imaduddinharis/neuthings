@@ -620,7 +620,7 @@ class Adsmanagementcontroller extends CI_Controller {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => $this->API.'telkomap/kota'.$this->param,
+        CURLOPT_URL => $this->API.'telkomap/kota'.$this->param.'&limit=100',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -691,7 +691,7 @@ class Adsmanagementcontroller extends CI_Controller {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => $this->API.'telkomap/witel'.$this->param,
+        CURLOPT_URL => $this->API.'telkomap/witel'.$this->param.'&limit=100',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
