@@ -228,8 +228,8 @@ class Adsmanagementcontroller extends CI_Controller {
             }else{
                 $status_code = 'XXXXX';
             }
-            // var_dump($upload);
-            // return false;
+            var_dump($_FILES['photo']['tmp_name'][0]);
+            return false;
             $createPref = Adspref::create($adsPref);
             $id = array('photo'         => $this->imglink.$upload->data->link,
                         'id_ads_pref'   => $postApi->data->id);
