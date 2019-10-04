@@ -31,18 +31,7 @@
                                             <label>Location Target</label>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <select class="form-control" id="city" onInput="validationform1()" name="city" required>
-                                                <?php
-                                                $kota = $kotas->data;
-                                                foreach ($kota as $kts){
-                                                    if($kts == $Adspref[0]['city']){
-                                                        echo '<option value="'.$kts.'" selected>'.$kts.'</option>';
-                                                    }else{
-                                                        echo '<option value="'.$kts.'" >'.$kts.'</option>';
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
+                                            <input type="text" onInput="validationform1()" id="country" class="form-control" name="country" placeholder="country" value="Indonesia" required disabled>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <select class="form-control" id="state" onInput="validationform1()" name="state" required>
@@ -59,7 +48,18 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <input type="text" onInput="validationform1()" id="country" class="form-control" name="country" placeholder="country" value="Indonesia" required disabled>
+                                            <select class="form-control" id="city" onInput="validationform1()" name="city" required>
+                                                <?php
+                                                $kota = $kotas->data;
+                                                foreach ($kota as $kts){
+                                                    if($kts == $Adspref[0]['city']){
+                                                        echo '<option value="'.$kts.'" selected>'.$kts.'</option>';
+                                                    }else{
+                                                        echo '<option value="'.$kts.'" >'.$kts.'</option>';
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                         <div class="col-md-6 col-sm-12 form-group">
                                             <label for="scheduling">Scheduling</label>
