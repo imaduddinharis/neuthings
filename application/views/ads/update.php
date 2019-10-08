@@ -30,10 +30,10 @@
                                         <div class="form-group col-md-12 col-sm-12 mb-0">
                                             <label>Location Target</label>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <input type="text" onInput="validationform1()" id="country" class="form-control" name="country" placeholder="country" value="Indonesia" required disabled>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <select class="form-control" id="state" onInput="validationform1()" name="state" required>
                                                 <?php
                                                 $witel = $witels->data;
@@ -46,8 +46,10 @@
                                                 }
                                                 ?>
                                             </select>
+                                            
+                                            <input type="text" onInput="validationform1()" class="form-control" name="city" placeholder="City" value="undefined" style="display:none" required>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <!-- <div class="form-group col-md-4">
                                             <select class="form-control" id="city" onInput="validationform1()" name="city" required>
                                                 <?php
                                                 $kota = $kotas->data;
@@ -60,7 +62,7 @@
                                                 }
                                                 ?>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6 col-sm-12 form-group">
                                             <label for="scheduling">Scheduling</label>
                                             <select id="scheduling" class="form-control" name="scheduling" onInput="validationform1()" required>
