@@ -87,8 +87,9 @@
                                         <div class="form-group col-md-6 col-sm-12">
                                             <label for="budget">Budget</label>
                                             <select id="budget" class="form-control" onInput="validationform1()" name="budget" required>
-                                                <option value="1">Daily Budget</option>
-                                                <option value="2">Lifetime Budget</option>
+                                                <option value="1">One Time Budget</option>
+                                                <option value="2" disabled>Daily Budget (soon)</option>
+                                                <option value="3" disabled>Lifetime Budget (soon)</option>
                                             </select>
                                             <small class="form-text text-muted">define how much you'd like to spend</small>
                                         </div>
@@ -112,8 +113,8 @@
                                             <label for="scheduling">Scheduling</label>
                                             <select id="scheduling" class="form-control" name="scheduling" onInput="validationform1()" required>
                                                 <option value="1">Daily Repeated</option>
-                                                <option value="2">Weekly Repeated</option>
-                                                <option value="3">Monthly Repeated</option>
+                                                <option value="2" disabled>Weekly Repeated (soon)</option>
+                                                <option value="3" disabled>Monthly Repeated (soon)</option>
                                             </select>
                                             <small class="form-text text-muted">define when you'd like your ads to appear</small>
                                         </div>

@@ -67,8 +67,8 @@
                                             <label for="scheduling">Scheduling</label>
                                             <select id="scheduling" class="form-control" name="scheduling" onInput="validationform1()" required>
                                                 <option value="1">Daily Repeated</option>
-                                                <option value="2">Weekly Repeated</option>
-                                                <option value="3">Monthly Repeated</option>
+                                                <option value="2" disabled>Weekly Repeated (soon)</option>
+                                                <option value="3" disabled>Monthly Repeated (soon)</option>
                                             </select>
                                             <small class="form-text text-muted">define when you'd like your ads to appear</small>
                                         </div>

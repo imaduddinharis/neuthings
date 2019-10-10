@@ -26,7 +26,7 @@ function validationform1() {
 
 
 
-  if(language != '' && city != '' && state != '' && country != '' && budget != '' && !isNaN(price) && price >= 100000 && scheduling != '' && platform != '')
+  if(language != '' && city != '' && state != '' && country != '' && budget != '' && !isNaN(price) && price >= 10000 && scheduling != '' && platform != '')
   {
     $('#nextpageads').removeAttr('disabled');
   }else{
