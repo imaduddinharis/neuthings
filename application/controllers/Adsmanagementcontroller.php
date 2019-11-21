@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Adsmanagementcontroller extends CI_Controller {
 
     var $path = '';
-    var $API = 'http://api.pushads.amandjaja.com/frog/oapi/';
-    var $APIStatistik = 'http://sa.pushads.amandjaja.com/fig/service/content/daily';
+    var $API = 'https://api.pushads.amandjaja.com/frog/oapi/';
+    var $APIStatistik = 'https://sa.pushads.amandjaja.com/fig/service/content/daily';
     var $param = '?tcx_datetime=20181230235959';
     var $TYPE = 'FTC';
     var $APPID = 'neuthings.id';
@@ -195,7 +195,7 @@ class Adsmanagementcontroller extends CI_Controller {
         if(@getimagesize($_FILES['photo']['tmp_name'])[0] == '640' && @getimagesize($_FILES['photo']['tmp_name'])[1] == '720')
         {
             
-            $postApi = json_decode($this->postAdsApi($this->input->post('title'),01,$this->input->post('price'),10,intVal($this->input->post('price')/10)));
+            $postApi = json_decode($this->postAdsApi($this->input->post('title'),'01',$this->input->post('price'),10,intVal($this->input->post('price')/10)));
             
             $adsPref = array(
                 'id_ads_pref'   => $postApi->data->id,
@@ -310,7 +310,7 @@ class Adsmanagementcontroller extends CI_Controller {
     public function put()
     {
         $ads     = json_decode($this->getAdsApi($this->input->post('idads')));
-        $putApi = json_decode($this->putAdsApi($this->input->post('title'),01,$ads->data->budget,$ads->data->price,$ads->data->target,$ads->data->_start,$ads->data->_end,$ads->data->id));
+        $putApi = json_decode($this->putAdsApi($this->input->post('title'),'01',$ads->data->budget,$ads->data->price,$ads->data->target,$ads->data->_start,$ads->data->_end,$ads->data->id));
         // var_dump($putApi);
         // return false;
         
@@ -502,6 +502,9 @@ class Adsmanagementcontroller extends CI_Controller {
 
     public function postAdsApi($name,$type,$budget,$price,$target)
     {
+        date_default_timezone_set("Asia/Bangkok");
+        $start = date('Y-m-d');
+        $end = date('Y-m-d', strtotime('+1 month', strtotime($start)));
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -516,11 +519,12 @@ class Adsmanagementcontroller extends CI_Controller {
         CURLOPT_POSTFIELDS => array('group_id' => '21',
                                     'name' => $name,
                                     'type' => $type,
-                                    '_start' => '2019-07-18',
-                                    '_end' => '2019-07-30',
+                                    '_start' => $start,
+                                    '_end' => $end,
                                     'budget' => $budget,
                                     'price' => $price,
-                                    'target' => $target),
+                                    'target' => $target,
+                                    'placement_id' => 1),
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
             "X-TCX-APP-ID: ".$this->APPID,
