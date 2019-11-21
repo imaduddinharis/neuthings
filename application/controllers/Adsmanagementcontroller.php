@@ -195,7 +195,7 @@ class Adsmanagementcontroller extends CI_Controller {
         if(@getimagesize($_FILES['photo']['tmp_name'])[0] == '640' && @getimagesize($_FILES['photo']['tmp_name'])[1] == '720')
         {
             
-            $postApi = json_decode($this->postAdsApi($this->input->post('title'),'01',$this->input->post('price'),10,intVal($this->input->post('price')/10)));
+            $postApi = json_decode($this->postAdsApi($this->input->post('title'),'01',$this->input->post('price'),10,intVal($this->input->post('price')/10),$this->input->post('state')));
             
             $adsPref = array(
                 'id_ads_pref'   => $postApi->data->id,
@@ -310,7 +310,7 @@ class Adsmanagementcontroller extends CI_Controller {
     public function put()
     {
         $ads     = json_decode($this->getAdsApi($this->input->post('idads')));
-        $putApi = json_decode($this->putAdsApi($this->input->post('title'),'01',$ads->data->budget,$ads->data->price,$ads->data->target,$ads->data->_start,$ads->data->_end,$ads->data->id));
+        $putApi = json_decode($this->putAdsApi($this->input->post('title'),'01',$ads->data->budget,$ads->data->price,$ads->data->target,$ads->data->_start,$ads->data->_end,$ads->data->id,$this->input->post('state')));
         // var_dump($putApi);
         // return false;
         
@@ -500,7 +500,7 @@ class Adsmanagementcontroller extends CI_Controller {
         echo $data;
     }
 
-    public function postAdsApi($name,$type,$budget,$price,$target)
+    public function postAdsApi($name,$type,$budget,$price,$target,$loc)
     {
         date_default_timezone_set("Asia/Bangkok");
         $start = date('Y-m-d');
@@ -524,7 +524,10 @@ class Adsmanagementcontroller extends CI_Controller {
                                     'budget' => $budget,
                                     'price' => $price,
                                     'target' => $target,
-                                    'placement_id' => 1),
+                                    'placement_id' => 1,
+                                    'witels[0]' => $loc,
+                                    'isSelected' => 1,
+                                ),
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
             "X-TCX-APP-ID: ".$this->APPID,
@@ -545,7 +548,7 @@ class Adsmanagementcontroller extends CI_Controller {
         } 
     }
     
-    public function putAdsApi($name,$type,$budget,$price,$target,$start,$end,$id)
+    public function putAdsApi($name,$type,$budget,$price,$target,$start,$end,$id,$loc)
     {
         $curl = curl_init();
 
@@ -568,6 +571,8 @@ class Adsmanagementcontroller extends CI_Controller {
                                     'target' => $target,
                                     'id' => $id,
                                     '_method' => 'put',
+                                    'witels[0]' => $loc,
+                                    'isSelected' => 1,
                                     ),
         CURLOPT_HTTPHEADER => array(
             "X-TCX-TYPE: ".$this->TYPE,
